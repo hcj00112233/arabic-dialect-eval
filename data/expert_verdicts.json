@@ -1,0 +1,54 @@
+{
+ "S-T1-01": {
+  "type": "深度判定",
+  "verdict": "语法没问题，就是话显得有点太长了，一般阿拉伯人不会写这么长的字，这个话说出去感觉两人只是普通朋友，不太熟的感觉。"
+ },
+ "S-T1-02": {
+  "type": "深度判定",
+  "verdict": "فاز فوز这个用法放在标准语里好像更合适，不知道是否适用于沙特方言；فزنا وفزنا بجدارة 为什么要重复用，我没懂，看起来感觉沙特人不常用"
+ },
+ "S-T2-02": {
+  "type": "深度判定+judge同意",
+  "verdict": "基本语境都考虑到了，没有硬伤",
+  "judge_agree": true
+ },
+ "S-T4-01": {
+  "type": "深度判定",
+  "verdict": "الله يعافيك يا الغالي好像没有يعطيك العافية常见？还是我的错觉？然后整句回答也太长了，口语控制在一半左右就行",
+  "judge_edited": true
+ },
+ "E-T2-02": {
+  "type": "深度判定",
+  "verdict": "感觉没有يا أستاذ常用，而且这个似乎用于所有阿拉伯国家，不特指埃及",
+  "judge_edited": true
+ },
+ "E-T3-01": {
+  "type": "深度判定",
+  "verdict": "看起来有点怪，معلش يا صاحبي不是没事朋友的意思吗，不应该先说不好意思或者很抱歉吗"
+ },
+ "M-T1-04": {
+  "type": "+judge同意",
+  "verdict": "",
+  "judge_agree": true
+ },
+ "S-T1-08": {
+  "type": "修改judge",
+  "verdict": "(修改了judge草稿)",
+  "judge_edited": true
+ },
+ "E-T1-07": {
+  "type": "修改judge",
+  "verdict": "(修改了judge草稿)",
+  "judge_edited": true
+ },
+ "S-T2-05": {
+  "type": "+judge同意",
+  "verdict": "",
+  "judge_agree": true
+ },
+ "E-T2-06": {
+  "type": "+judge同意",
+  "verdict": "",
+  "judge_agree": true
+ }
+}
