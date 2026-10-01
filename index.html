@@ -259,7 +259,7 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 <ul>
   <li>被测回答：154 条 × 2 模型，单条 input 约 0.1-0.3K tokens、output 0.5-2K tokens（K3 含思维链），合计约百万 tokens 以内；DeepSeek 按量计费为元级，Kimi 走订阅额度；</li>
   <li>judge 初筛：154 条 ×（rubric 约 2K + 回答）tokens，deepseek-chat 计费<strong>约 ¥2 量级</strong>；</li>
-  <li>结论：机器层全量跑一遍的边际成本不足一杯咖啡，<strong>评测的真瓶颈从来不是 token 单价，而是人工复核时间</strong>。</li>
+  <li>结论：机器层全量跑一遍的边际成本不足一杯咖啡，<strong>评测的真瓶颈在人工复核时间</strong>。</li>
 </ul>
 <p><strong>人力账（降本手段的实战）</strong></p>
 <ul>
@@ -286,7 +286,7 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
   <tr><td>幻觉式扣分（judge 判 ≤1 分但人工层不认同）</td><td>0 / 58</td><td>2 / 54</td><td>2 / 72</td></tr>
   <tr><td>judge-人工维度分平均绝对差</td><td>0.118</td><td>0.176</td><td>0.088</td></tr>
 </table></div>
-<p class="muted">解读：judge 对同源模型"更宽容、更少归因、与人工层更一致"，对第三方模型"更苛刻、且会产生幻觉式扣分"——self-preference bias 不是理论风险而是实测存在（尽管总分差仅 0.02，但归因密度差 2.3 倍）。Astra 侧进一步实证：judge 在第三方模型上同样产生幻觉式扣分——S-T6-06 中 Astra 答案 ٤٥-٧+١٢=٥٠ 完全正确，judge 却判"算术自相矛盾"给 D3/D5=0（其理由里自己算出的也是 50）；S-T2-07 中 judge 把海湾通用表达 <span class="ar" lang="ar" dir="rtl">على عيني وراسي</span> 误判为"埃及方言"，被人工复核当场推翻。两条均为人工实锤。因此本报告所有关键结论均以人工层为准，judge 仅承担初筛。结论升级为：<strong>"judge 不可裸信"是跨模型普适现象，不因同源/异源而消失；judge 与被测模型应异源，且最好多家 judge 交叉</strong>。</p>
+<p class="muted">解读：judge 对同源模型"更宽容、更少归因、与人工层更一致"，对第三方模型"更苛刻、且会产生幻觉式扣分"——self-preference bias 已由实测证实（尽管总分差仅 0.02，但归因密度差 2.3 倍）。Astra 侧进一步实证：judge 在第三方模型上同样产生幻觉式扣分——S-T6-06 中 Astra 答案 ٤٥-٧+١٢=٥٠ 完全正确，judge 却判"算术自相矛盾"给 D3/D5=0（其理由里自己算出的也是 50）；S-T2-07 中 judge 把海湾通用表达 <span class="ar" lang="ar" dir="rtl">على عيني وراسي</span> 误判为"埃及方言"，被人工复核当场推翻。两条均为人工实锤。因此本报告所有关键结论均以人工层为准，judge 仅承担初筛。结论升级为：<strong>"judge 不可裸信"是跨模型普适现象，不因同源/异源而消失；judge 与被测模型应异源，且最好多家 judge 交叉</strong>。</p>
 
 <h3>3.2 干预实验：bad case → 修复 → 重跑 → 验证</h3>
 <p>"三、数据建议"里的路线不是口头建议——对两条可快速验证的路线做了干预实验（干预脚本 run_interventions.py，结果存档 interventions.json）：</p>
