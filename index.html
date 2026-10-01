@@ -30,7 +30,7 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 <div class="layout"><aside class="contents"><details open id="contents"><summary>报告目录</summary><nav aria-label="报告章节"><a href="#section-0" aria-current="true"><span>00</span>摘要</a><a href="#section-1"><span>01</span>评测设计</a><a href="#section-2"><span>02</span>横评实测发现</a><a href="#section-3"><span>03</span>评审管线与干预实验</a><a href="#section-4"><span>04</span>模型迭代建议</a><a href="#section-5"><span>05</span>方法论与局限</a></nav></details><div class="contents-foot"><strong>ARABIC LANGUAGE EVALUATION</strong>三语体 · 三模型 · 同题对照</div></aside>
 <main class="wrap" id="report" tabindex="-1">
 
-<header class="hero"><div class="eyebrow">语言与语言学 <span aria-hidden="true">›</span> 阿拉伯语研究 <span aria-hidden="true">›</span> 模型能力评测</div>
+<header class="hero">
   <h1>阿拉伯语大模型能力横评<span>DeepSeek-V3.2 vs Kimi K3 vs GPT-6 Astra</span></h1>
   <div class="sub">MSA / 沙特方言 / 埃及方言 三语体平行框架 · 154 条结构化 Case · 同 Case 集 + 同 Rubric + 同 Judge 的三模型对照</div>
 </header><div class="metrics" aria-label="评测规模"><div class="metric"><div class="metric-value">154<small>条</small></div><div class="metric-label">结构化 Case / 每个模型</div></div><div class="metric"><div class="metric-value">3<small>种</small></div><div class="metric-label">MSA · 沙特 · 埃及语体</div></div><div class="metric"><div class="metric-value">7<small>类</small></div><div class="metric-label">任务覆盖</div></div><div class="metric"><div class="metric-value">6<small>项</small></div><div class="metric-label">评分维度</div></div></div>
@@ -137,14 +137,13 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 <div class="card">
 <div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
   <tr><th>维度</th><th>DeepSeek-V3.2<br><span class="muted">judge 全量 154 条</span></th><th>Kimi K3<br><span class="muted">judge 全量 154 条</span></th><th>GPT-6 Astra<br><span class="muted">judge 全量 154 条</span></th></tr>
-  <tr><td>D1 语体准确性</td><td class="win">2.99</td><td>2.97</td><td>2.99</td></tr>
+  <tr><td>D1 语体准确性</td><td class="win">2.99</td><td>2.97</td><td class="win">2.99</td></tr>
   <tr><td>D2 语域切换</td><td class="win">2.88</td><td>2.84</td><td>2.82</td></tr>
   <tr><td>D3 知识准确性</td><td class="win">2.91</td><td>2.88</td><td>2.88</td></tr>
   <tr><td>D4 文化适切性</td><td class="win">3.00</td><td>2.99</td><td>2.98</td></tr>
   <tr><td>D5 推理质量</td><td class="win">2.77</td><td>2.73</td><td>2.73</td></tr>
   <tr><td>D6 表达水准</td><td>2.95</td><td class="win">2.97</td><td>2.95</td></tr>
 </table></div>
-<p class="muted">读表注意：① 全部出自 deepseek-chat judge，<strong>DS 列属"同源自评"，存在系统性偏宽</strong>——实证：judge 给 DS 全量 154 条几乎找不到归因（仅 A1×1、A5×2），而人工层在 DS 回答里抓到了 judge 漏掉的 A7 事实错误（M-T5-02 教法归属张冠李戴，judge 仅给 D3=2）和 A5 文化幻觉（E-T7-02）；② 横向结论以人工层（下表）为准。judge 层可参考的稳健结论：<strong>三个模型共同最弱维度均为 D5 推理</strong>；Astra 侧 judge 归因同样稀少（A7×2、A1×1、A6×1），与 DS 同侧的"judge 找不到问题"现象一致，已经人工复核验证（2 条幻觉式扣分被实锤，详见 3.1）。</p>
 </div>
 <div class="card">
 <p><strong>产品口径指标对照</strong>（人工层：DS 67 / Kimi 67 / Astra 72 条 = 人工判定 + AI 代审，方法对称）</p>
@@ -160,24 +159,24 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 
 <h3>2.2 同题直接对话（同一 case 的三方对照）</h3>
 <div class="card">
-  <p><span class="caseid">E-T2-02</span> <span class="tag kimi">Kimi · Astra 达标</span> <strong>يا معلم 语用分析</strong></p>
-  <p>DS 被判"给出的替代称呼 <span class="ar" lang="ar" dir="rtl">يا أستاذ</span> 是泛阿语区通用语，非埃及特有——对语料边界不敏感"；Kimi 同题获人工复核"同意，比 ds 细节一些"；Astra 同题判【同意】：以地道开罗方言解释、点明语气可反转、明确正式场合改用 <span class="ar" lang="ar" dir="rtl">يا أستاذ</span>，语用分析完整。三家同题，DS 是唯一失分方。</p>
-</div>
-<div class="card">
   <p><span class="caseid">S-T1-08 / E-T1-07</span> <span class="tag kimi">Kimi · Astra 胜</span> <strong>方言生成</strong></p>
   <p>Kimi 人工判定："比 ds 好一些，段落开头没有那么多重复表达"（S-T1-08）；"基本同意，比 ds 文采好点"（E-T1-07）。Astra 两题同判【同意】："通篇地道 Najdi 口语、对父敬语层级到位"（S-T1-08）、"纯正开罗方言长信、母语级自然度"（E-T1-07）——方言生成的自然度上，DS 在三家中相对靠后。</p>
+<p class="muted md-refs">复核稿原文定位：S-T1-08（<a href="review/deepseek_review.html#S-T1-08">DS</a> · <a href="review/kimi3_core_review.html#S-T1-08">Kimi</a> · <a href="review/gpt6astra_core_review.html#S-T1-08">Astra</a>） · E-T1-07（<a href="review/deepseek_review.html#E-T1-07">DS</a> · <a href="review/kimi3_core_review.html#E-T1-07">Kimi</a> · <a href="review/gpt6astra_core_review.html#E-T1-07">Astra</a>）</p>
 </div>
 <div class="card">
-  <p><span class="caseid">E-T3-02</span> <span class="tag info">DS 相对胜</span> <strong>埃及工程师面试沙特公司</strong> <span class="tag info">人工出题</span></p>
-  <p>DS 该题是亮点 case（体面版埃及口语 + 主动援引 Vision 2030）；Kimi 同题被判"不同意，整体还是比较空泛，<strong>和 ds 问题比较像</strong>"；Astra 同题判【基本同意】：方言地道、避开红线，但"内容全围绕自我成长，未体现对沙特社会/市场机遇的针对性"——Kimi 与 Astra 同病（深度与针对性不足），DS 靠 Vision 2030 的针对性相对胜出。</p>
+  <p><span class="caseid">E-T3-02</span> <span class="tag info">三方均有缺口</span> <strong>埃及工程师面试沙特公司</strong> <span class="tag info">人工出题</span></p>
+  <p>三家都主动援引了 Vision 2030——它已是此类题目的通用话术，不构成区分度，真正的差距在执行质量：DS 方言体面、规避"为钱"红线执行完整，但亮点止于话术层；Kimi 同题被判"不同意，整体还是比较空泛"；Astra 判【基本同意】，但人工复核指出"内容全围绕自我成长，未体现对沙特社会/市场机遇的针对性"。该题三家均未完全达标——方言地道之外，针对对方市场的具体洞察才是分水岭。</p>
+<p class="muted md-refs">复核稿原文定位：E-T3-02（<a href="review/deepseek_review.html#E-T3-02">DS</a> · <a href="review/kimi3_core_review.html#E-T3-02">Kimi</a> · <a href="review/gpt6astra_core_review.html#E-T3-02">Astra</a>）</p>
 </div>
 <div class="card">
   <p><span class="caseid">S-T2-02</span> <span class="tag bad">三方同题全踩坑 · 错法各异</span> <strong>تو الناس 词义理解</strong></p>
   <p>同一道题三种错法，正好构成三家的短板画像：DS 用生造表达 <span class="ar" lang="ar" dir="rtl">للتو</span>（人工复核："不知道哪里来的，本地人很少用"）——<strong>语料边界</strong>问题；Kimi 另混入波斯字母 <span class="ar" lang="ar" dir="rtl">أگدر</span>（"本地人看到会以为你是波斯人"）——<strong>生成纯净度</strong>问题；Astra 词义解释正确，但人工复核判"没有表达出略微讽刺的那一层意思"——<strong>语用层次</strong>问题。</p>
+<p class="muted md-refs">复核稿原文定位：S-T2-02（<a href="review/deepseek_review.html#S-T2-02">DS</a> · <a href="review/kimi3_core_review.html#S-T2-02">Kimi</a> · <a href="review/gpt6astra_core_review.html#S-T2-02">Astra</a>）</p>
 </div>
 <div class="card">
   <p><span class="caseid">S-T3-05 / E-T7-04 / M-T2-03</span> <span class="tag info">同题反转</span> <strong>单题胜负互有来回</strong></p>
   <p>人工层同集对照发现：<strong>S-T3-05</strong>（演讲→方言推文）<strong>三家同题同型失守</strong>，都"基本照录官方原句"（Astra 同判 A2，方言化不彻底）；<strong>E-T7-04</strong>（Arabizi 解码）DS/Kimi 都把 <code>9</code> 误读为 <span class="ar" lang="ar" dir="rtl">ق</span>（埃及约定 9=ص），<strong>Astra 是唯一零样本正确解码的模型</strong>（9=ص、3=ع、7=ح 全对，人工复核仅指出题用词偏罕见）；而 <strong>M-T2-03</strong> 诗歌背景题 DS 与 Astra 答对（归属 المتنبي 准确、未杜撰），Kimi 反而虚构背景（A7）——单题层面没有常胜方，差距在分布密度。</p>
+<p class="muted md-refs">复核稿原文定位：S-T3-05（<a href="review/deepseek_review.html#S-T3-05">DS</a> · <a href="review/kimi3_core_review.html#S-T3-05">Kimi</a> · <a href="review/gpt6astra_core_review.html#S-T3-05">Astra</a>） · E-T7-04（<a href="review/deepseek_review.html#E-T7-04">DS</a> · <a href="review/kimi3_core_review.html#E-T7-04">Kimi</a> · <a href="review/gpt6astra_core_review.html#E-T7-04">Astra</a>） · M-T2-03（<a href="review/deepseek_review.html#M-T2-03">DS</a> · <a href="review/kimi3_core_review.html#M-T2-03">Kimi</a> · <a href="review/gpt6astra_core_review.html#M-T2-03">Astra</a>）</p>
 </div>
 
 <h3>2.3 各自亮点 Case</h3>
@@ -186,7 +185,6 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
   <ul>
     <li><span class="caseid">S-T6-01</span> 沙特方言多步推理零退化，主动使用东阿拉伯数字符合海湾惯例；</li>
     <li><span class="caseid">E-T7-02</span> Arabizi 解析并<strong>主动完成方言区指纹分析</strong>（从 <code>2=ق</code> 反推埃及用户）——但注意：同条回答的归属论证在人工层被判多处不实（见 2.4），亮点与瑕疵同体；</li>
-    <li><span class="caseid">E-T3-02</span> 跨方言区职场语用（Vision 2030、规避"为钱"红线）执行完整；</li>
     <li><span class="caseid">S-T4-05</span>（人工层）加薪谈判话术纯沙特（<span class="ar" lang="ar" dir="rtl">يا طويل العمر / أبغى رأيك</span>），先谢恩、以询问代反对、主动提 3-6 个月评审折中，明确把"威胁离职"列为禁忌。</li>
   </ul>
 </div>
@@ -223,7 +221,6 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 </div>
 
 <h3>2.5 产品化视角：bad case 的定位与兜底</h3>
-<p>AI 产品的 PRD 比传统 PRD 多一块"模型行为边界"——什么能答、什么不能答、幻觉怎么兜底。按"<strong>先定位问题出在哪一层 → 排查步骤 → 兜底方案</strong>"的框架，把本轮硬伤翻译成产品动作：</p>
 <div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
   <tr><th>Bad case</th><th>定位</th><th>排查路径</th><th>兜底设计（写进 PRD 的部分）</th></tr>
   <tr><td><span class="caseid">E-T7-04</span> Arabizi 解码错（DS/Kimi 同病，Astra 已通过）</td><td>数据层 + 模型层</td><td>Arabizi 训练语料未按方言区系统覆盖 → 不是提示词能修的</td><td>解码置信度低时<strong>确认式反问</strong>（"您的意思是订单尚未送达吗？"）而非直接执行；客服场景把"数字映射歧义"列入必回归 case</td></tr>
@@ -344,7 +341,7 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 
 </section>
 <footer>
-  <p><strong>材料清单</strong>：<a href="review/rubric.md">rubric.md</a>（完整评分框架）· cases_full.jsonl（154 条 case）· <a href="review/arabizi_reference.md">arabizi_reference.md</a>（Arabizi 映射调研）· 三模型各 154 条原始回答存档（JSONL）· expert_verdicts.json（DS 早期人工判定 11 条）· ds_verdicts.json / kimi3_verdicts.json / gpt6astra_verdicts.json（三侧人工层 67 / 67 / 72 条：人工判定 + AI 代审分开标注）· ds_judge.json / kimi3_judge.json / gpt6astra_judge.json（judge 三侧全量初筛）· interventions.json（干预实验存档）· 评测管线脚本（run_eval.py / run_eval_kimi_local.py / run_eval_codex.py / judge_kimi3.py / gen_review.py / run_interventions.py）· 复核稿存档（<a href="review/deepseek_review.md">deepseek_review.md</a> / <a href="review/kimi3_core_review.md">kimi3_core_review.md</a> / <a href="review/kimi3_extra_review.md">kimi3_extra_review.md</a> / <a href="review/gpt6astra_core_review.md">gpt6astra_core_review.md</a> / <a href="review/gpt6astra_extra_review.md">gpt6astra_extra_review.md</a> / <a href="review/gpt6astra_manual_review.md">gpt6astra_manual_review.md</a>）· 相关文献原文存档（related_work/，8 篇 arXiv PDF）</p>
+  <p><strong>材料清单</strong>：<a href="review/rubric.html">rubric.md</a>（完整评分框架）· cases_full.jsonl（154 条 case）· <a href="review/arabizi_reference.html">arabizi_reference.md</a>（Arabizi 映射调研）· 三模型各 154 条原始回答存档（JSONL）· expert_verdicts.json（DS 早期人工判定 11 条）· ds_verdicts.json / kimi3_verdicts.json / gpt6astra_verdicts.json（三侧人工层 67 / 67 / 72 条：人工判定 + AI 代审分开标注）· ds_judge.json / kimi3_judge.json / gpt6astra_judge.json（judge 三侧全量初筛）· interventions.json（干预实验存档）· 评测管线脚本（run_eval.py / run_eval_kimi_local.py / run_eval_codex.py / judge_kimi3.py / gen_review.py / run_interventions.py）· 复核稿存档（<a href="review/deepseek_review.html">deepseek_review.md</a> / <a href="review/kimi3_core_review.html">kimi3_core_review.md</a> / <a href="review/kimi3_extra_review.html">kimi3_extra_review.md</a> / <a href="review/gpt6astra_core_review.html">gpt6astra_core_review.md</a> / <a href="review/gpt6astra_extra_review.html">gpt6astra_extra_review.md</a> / <a href="review/gpt6astra_manual_review.html">gpt6astra_manual_review.md</a>）· 相关文献原文存档（related_work/，8 篇 arXiv PDF）</p>
   <p>© 2026 Aaron · 本报告为求职作品集，评测数据存档备索 · DS 单机版报告见备份文件</p>
 </footer>
 

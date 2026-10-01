@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>kimi3_extra_review</title>
+<style>body{max-width:880px;margin:2rem auto;padding:0 1.2rem;font:16px/1.75 -apple-system,"PingFang SC",sans-serif;color:#1a1a1a}
+h1{font-size:1.5rem}h2{font-size:1.15rem;margin-top:2.2rem;border-top:1px solid #ddd;padding-top:1rem}
+code{background:#f3f3f3;padding:.1em .35em;border-radius:4px}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:.35em .7em}
+a{color:#2f4fbf}p,li{unicode-bidi:plaintext}</style></head><body>
+<p><a href="../report/%E9%98%BF%E8%AF%AD%E8%AF%84%E6%B5%8B%E6%8A%A5%E5%91%8A_%E8%83%A1%E7%BA%AF%E5%89%91.html">&larr; 返回评测报告</a> · <a href="../index.html">站点首页</a></p>
+<h1>Kimi K3 追加复核稿（judge 标记的非核心集 case）</h1>
+<blockquote>
+<p>以下非核心集 case 被 judge 标为 bad case(任一维度≤1)或 uncertain，按 rubric 流程需人工判定。judge 初评附在每条后供参考。</p>
+</blockquote>
+<hr />
+<h2 id="E-T3-04">E-T3-04 [T3_register / egyptian / medium]</h2>
+<p><strong>题目</strong>：把奖学金申请截止通知（10月15日）改写成发给找奖学金朋友的埃及方言WhatsApp
+<strong>题干</strong>：حوّل الإعلان الرسمي ده لرسالة واتساب بالمصري تبعتها لصاحبك اللي بيدور على منحة: «نحيط علمكم بأن باب التقديم لمنحة الجامعة الأمريكية بالقاهرة يُغلق يوم ١٥ أكتوبر القادم، وعلى المتقدمين استيفاء الأوراق قبل هذا التاريخ»
+<strong>Gold</strong>：مصري عاجل ودود (آخر معاد التقديم ١٥ أكتوبر/جهز ورقك من دلوقتي/الفرصة دي متتفوتش)، الحفاظ على التاريخ بدقة، تنبيه لاستيفاء الأوراق قبل الموعد
+<strong>陷阱</strong>：تغيير التاريخ(A7)، تخفيف الإلحاح حتى يضيع معنى الموعد النهائي</p>
+<p><strong>Kimi K3 回答</strong>：
+يا معلم! 🚨</p>
+<p>بقولك إيه، لو لسه بتاكل عيش وتدور على منحة.. خد بالك!</p>
+<p>منحة الجامعة الأمريكية بالقاهرة 🇺🇸 قافلة باب التقديم يوم <strong>15 أكتوبر</strong> اللي جاي!</p>
+<p>يعني لو عايز تقدم لازم تظبط ورقك وتخلصه كله قبل التاريخ ده، متستناش لآخر دقيقة ودماغك تجيلك 😅</p>
+<p>يلا يا باشا شوف إيه الناقصك وخلص، ولو محتاج مساعدة في حاجة قولي وأنا تحت أمرك 💪</p>
+<p>بالتوفيق يا صاحبي 🤞</p>
+<p><strong>judge 初评</strong>：{'D1': 3, 'D2': 3, 'D3': 2, 'D4': 3, 'D5': 2, 'D6': 3} 归因:[] uncertain=True
+<strong>judge 理由</strong>：埃及方言地道（يا معلم/بقولك إيه/قافلة/متستناش/يا باشا），语域切换自然，文化表达得体；但未指明具体奖学金名称且日期等事实信息无法核实，知识准确性略欠精确。</p>
+<p><strong>专家判定</strong>：【同意】</p>
+<hr />
+<h2 id="M-T6-06">M-T6-06 [T6_reasoning / msa / easy]</h2>
+<p><strong>题目</strong>：继续数列 2,6,18,54,... 并用阿语解释规律
+<strong>题干</strong>：أكمل المتتالية التالية مع شرح القاعدة بالعربية: ٢، ٦، ١٨، ٥٤، ...؟
+<strong>Gold</strong>：القاعدة: الضرب في ٣؛ الحد التالي ١٦٢ (ويمكن ذكر ٤٨٦)؛ شرح عربي واضح
+<strong>陷阱</strong>：اعتبارها متتالية جمع أو متتالية فيبوناتشي معدلة(A6)</p>
+<p><strong>Kimi K3 回答</strong>：
+العدد التالي هو <strong>١٦٢</strong>.</p>
+<p><strong>القاعدة:</strong> نضرب كل حد في <strong>٣</strong> للحصول على الحد التالي:</p>
+<p>٢ × ٣ = ٦<br />
+٦ × ٣ = ١٨<br />
+١٨ × ٣ = ٥٤<br />
+٥٤ × ٣ = <strong>١٦٢</strong></p>
+<p><strong>judge 初评</strong>：{'D1': 3, 'D2': 3, 'D3': 0, 'D4': 3, 'D5': 0, 'D6': 3} 归因:['A7'] uncertain=False
+<strong>judge 理由</strong>：语体为规范MSA、表达地道，但核心事实错误：54×3=162，而序列2,6,18,54的公比3下一项应为162，模型却写54×3=162却标为١٦٢（162）——实际54×3=162正确，但前文写'٥٤ × ٣ = ١٦٢'数值正确，然而序列应为162，答案١٦٢=162正确；但推理链中18×3=54正确，54×3=162正确，故答案正确。重新核对：2,6,18,54,162，公比3，答案162=١٦٢正确。故D3应为3，D5应为3。修正评分。</p>
+<p><strong>专家判定</strong>：【同意】</p>
+<hr />
+<h2 id="S-T2-01">S-T2-01 [T2_comprehension / saudi / easy]</h2>
+<p><strong>题目</strong>：解释这句海湾方言的标准语含义：「下班回来累死了，今天没心情做饭」
+<strong>题干</strong>：شنو معنى هالجملة بالفصحى؟ «ياي من الدوام ميت من التعب، ما عندي نفس أطبخ اليوم»
+<strong>Gold</strong>：准确解释 ياي=جئت/قادم, ما عندي نفس=لا أشعر برغبة；理解整体语境
+<strong>陷阱</strong>：ياي 误判为其他含义</p>
+<p><strong>Kimi K3 回答</strong>：
+هذه الجملة باللهجة العراقية، ومعناها بالفصحى:</p>
+<p><strong>«لقد عدتُ من العمل مرهقًا جدًا (كأنني ميتٌ من شدة التعب)، ولا أملك الرغبة ولا الطاقة للطبخ اليوم.»</strong></p>
+<h3>شرح الكلمات:</h3>
+<table>
+<thead>
+<tr>
+<th>الكلمة بالعامية</th>
+<th>معناها بالفصحى</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ياي</strong></td>
+<td>قادم / راجع (من "جاي" أي جاء)</td>
+</tr>
+<tr>
+<td><strong>الدوام</strong></td>
+<td>العمل / الوظيفة</td>
+</tr>
+<tr>
+<td><strong>ميت من التعب</strong></td>
+<td>مُجهَد جدًا، منهك تمامًا (مبالغة في وصف التعب)</td>
+</tr>
+<tr>
+<td><strong>ما عندي نفس</strong></td>
+<td>ليس لديّ رغبة أو طاقة أو همّة</td>
+</tr>
+<tr>
+<td><strong>أطبخ</strong></td>
+<td>أُعدّ الطعام</td>
+</tr>
+</tbody>
+</table>
+<p>فالمعنى الكلي أن المتكلم عاد من عمله منهكًا تمامًا، لدرجة أنه لا يستطيع إعداد الطعام في ذلك اليوم.</p>
+<p><strong>judge 初评</strong>：{'D1': 1, 'D2': 1, 'D3': 2, 'D4': 2, 'D5': 2, 'D6': 2} 归因:['A1', 'A2'] uncertain=True
+<strong>judge 理由</strong>：用户未给出明确语体要求，但回答将句子判定为伊拉克方言并给出MSA释义，若目标为沙特/埃及方言则语体错配（A2），且'ياي/الدوام'等词被标为伊拉克方言，存在方言区混用风险（A1）；释义本身基本准确但语体归属存疑。</p>
+<p><strong>专家判定</strong>：【基本同意,误将句子断定为伊拉克方言——ياي/الدوام/ما عندي نفس在沙特Najdi口语中同样通行,方言区归属判断失准】</p>
+<hr />
+</body></html>

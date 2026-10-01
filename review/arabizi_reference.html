@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>arabizi_reference</title>
+<style>body{max-width:880px;margin:2rem auto;padding:0 1.2rem;font:16px/1.75 -apple-system,"PingFang SC",sans-serif;color:#1a1a1a}
+h1{font-size:1.5rem}h2{font-size:1.15rem;margin-top:2.2rem;border-top:1px solid #ddd;padding-top:1rem}
+code{background:#f3f3f3;padding:.1em .35em;border-radius:4px}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:.35em .7em}
+a{color:#2f4fbf}p,li{unicode-bidi:plaintext}</style></head><body>
+<p><a href="../report/%E9%98%BF%E8%AF%AD%E8%AF%84%E6%B5%8B%E6%8A%A5%E5%91%8A_%E8%83%A1%E7%BA%AF%E5%89%91.html">&larr; 返回评测报告</a> · <a href="../index.html">站点首页</a></p>
+<h1>Arabizi（Franco-Arabic）映射规则调研</h1>
+<blockquote>
+<p>用途：评测 T7 模块 case 设计 + 作品集附录。Arabizi = Arabi + Englizi，90 年代末因键盘/手机不支持阿语字符而自发演化，至今仍是 MENA 年轻人聊天、社媒、客服 DM 的真实输入形态。</p>
+</blockquote>
+<h2>一、核心设计原理</h2>
+<ol>
+<li><strong>视觉镜像</strong>：数字长得像旋转/镜像后的阿语字母——<code>3</code> 是反写的 <code>ع</code>，<code>7</code> 像 <code>ح</code>，<code>6</code> 像 <code>ط</code></li>
+<li><strong>加点规则</strong>： apostrophe <code>'</code> 表示"给字母加点"——<code>3</code>=<code>ع</code> → <code>3'</code>=<code>غ</code>（ع 加点）；<code>7</code>=<code>ح</code> → <code>7'</code>=<code>خ</code>（ح 加点）；<code>9</code>=<code>ص</code> → <code>9'</code>=<code>ض</code></li>
+<li><strong>音值替代</strong>：拉丁字母按发音对应（sh=ش, th=ث, gh=غ, kh=خ, dh=ذ, aa=ا, ee=ي, oo=و）</li>
+<li><strong>地域音系映射</strong>（关键信息差）：数字映射的不是字母本身，而是<strong>该方言区对这个字母的实际发音</strong>——这是埃及 ق→2 的由来（埃及方言中 ق 发作声门塞音 /ʔ/，等于 hamza 的音）</li>
+</ol>
+<h2>二、核心映射表（英语系 Arabizi，埃及/海湾/黎凡特通用基线）</h2>
+<table>
+<thead>
+<tr>
+<th>数字</th>
+<th>阿语字母</th>
+<th>音</th>
+<th>例词</th>
+<th>设计逻辑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>ء</td>
+<td>声门塞音 /ʔ/</td>
+<td>so2al = سؤال</td>
+<td>形似；<strong>埃及/黎凡特兼表 ق</strong>（因方言中 ق 发作 /ʔ/）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ع</td>
+<td>咽音 /ʕ/</td>
+<td>3arabi = عربي</td>
+<td>3 是 ع 的镜像</td>
+</tr>
+<tr>
+<td>3'</td>
+<td>غ</td>
+<td>/ɣ/</td>
+<td>3'aleeb = غريب</td>
+<td>3 加点 = ع 加点</td>
+</tr>
+<tr>
+<td>4</td>
+<td>ش（部分地区）</td>
+<td>/ʃ/</td>
+<td>4abab = شباب（较少见，多用 sh）</td>
+<td>地区性用法，埃及偶见</td>
+</tr>
+<tr>
+<td>5</td>
+<td>خ</td>
+<td>/x/</td>
+<td>5abar = خبر</td>
+<td>形似（部分约定）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>ط</td>
+<td>emphatic /tˤ/</td>
+<td>6aalib = طالب</td>
+<td>6 像 ط</td>
+</tr>
+<tr>
+<td>6'</td>
+<td>ظ</td>
+<td>emphatic /ðˤ/</td>
+<td>6'alam = ظلام（较少见）</td>
+<td>6 加点</td>
+</tr>
+<tr>
+<td>7</td>
+<td>ح</td>
+<td>清咽擦音 /ħ/</td>
+<td>7abibi = حبيبي</td>
+<td>7 像 ح</td>
+</tr>
+<tr>
+<td>7' / 5</td>
+<td>خ</td>
+<td>/x/</td>
+<td>7'bar / 5bar = خبر</td>
+<td>7 加点；5 为另一支约定，<strong>خ 的写法是埃及/海湾差异点之一</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td>ق 或 غ</td>
+<td>/q/ 或 /ɣ/</td>
+<td>8albi = قلبي（海湾/黎凡特部分地区）</td>
+<td>8 像带两点的 ق；<strong>埃及几乎不用 8</strong>（埃及 ق→2）</td>
+</tr>
+<tr>
+<td>9</td>
+<td>ص</td>
+<td>emphatic /sˤ/</td>
+<td>9abr = صبر（埃及基线约定之一）</td>
+<td>9 像 ص 的变体</td>
+</tr>
+</tbody>
+</table>
+<h2>三、地域差异（评测的核心陷阱区）</h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>埃及</th>
+<th>海湾</th>
+<th>黎凡特</th>
+<th>马格里布（北非法语系）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ق</td>
+<td><strong>2</strong>（发 /ʔ/）</td>
+<td>8 / q / g（部分词发 /g/：gahwa=قهوة）</td>
+<td>2（城市口音发作 /ʔ/）</td>
+<td><strong>9</strong></td>
+</tr>
+<tr>
+<td>ج</td>
+<td>g（geem 发硬 g：gamel=جمل）</td>
+<td>j</td>
+<td>j</td>
+<td>j / dj</td>
+</tr>
+<tr>
+<td>خ</td>
+<td>5 或 7'</td>
+<td>5 或 kh</td>
+<td>5 或 7'</td>
+<td>kh</td>
+</tr>
+<tr>
+<td>غ</td>
+<td>3'</td>
+<td>3' 或 gh</td>
+<td>3'</td>
+<td>gh</td>
+</tr>
+<tr>
+<td>ش</td>
+<td>sh / ch / 4（少）</td>
+<td>sh</td>
+<td>sh / ch</td>
+<td><strong>ch</strong>（法语 ch=/ʃ/）</td>
+</tr>
+<tr>
+<td>长元音 u</td>
+<td>oo</td>
+<td>oo</td>
+<td>oo</td>
+<td><strong>ou</strong>（法语正字法）</td>
+</tr>
+<tr>
+<td>ث</td>
+<td>s / th</td>
+<td>th</td>
+<td>s / t</td>
+<td>t / th</td>
+</tr>
+</tbody>
+</table>
+<p><strong>马格里布 Arabizi 是完全另一套体系</strong>：底层是法语不是英语，<code>ch</code>=<code>ش</code>、<code>ou</code>=<code>و</code>、<code>9</code>=<code>ق</code>、<code>3</code>=<code>ع</code>。同一个字符串 <code>ch9ara</code> 在马格里布=شقارة，在埃及约定下无法解析。用户已声明不测摩洛哥方言，但<strong>评测报告里应注明此边界，并指出马格里布 Arabizi 是未来扩展方向</strong>——这本身就是专业性的体现。</p>
+<h2>四、歧义与难点（为什么这是模型的硬骨头）</h2>
+<ol>
+<li><strong>数字歧义</strong>：<code>3ndy 3 talabat</code> = عندي ٣ طلبات（"我有3个订单"）——同一个 <code>3</code> 既是字母又是真数字，只能靠上下文消歧</li>
+<li><strong>无空格标准</strong>：<code>wla</code> = ولا，<code>w la</code> 另有所指；连写/分写无约定</li>
+<li><strong>元音完全自由</strong>：<code>kteer / ktiir / keter</code> 都=كتير，同一词一人一个写法</li>
+<li><strong>英阿混排</strong>：真实输入是 <code>ana busy دلوقتي</code> 这种三语混合（Arabizi + English + 阿语字符同句）</li>
+<li><strong>检测本身就是难题</strong>：<code>ana 3ayez booking</code> 先判"这是 Arabizi 还是乱码/英语"，再判方言区（gamel 的 g → 埃及），再解析</li>
+</ol>
+<h2>五、对评测/数据工作的意义</h2>
+<ul>
+<li><strong>检测层</strong>：模型能否识别输入是 Arabizi（而非英语乱码）——客服/社交场景的前置能力</li>
+<li><strong>理解层</strong>：解析语义 + 判断方言区（通过 g/j、2/8/9 的用法反推用户是埃及人还是海湾人）</li>
+<li><strong>生成层</strong>：能否用 Arabizi 回复（营销/客服场景的真实需求）</li>
+<li><strong>数据层</strong>：Arabizi 语料几乎全是 UGC（评论/DM/推文），爬取可得但<strong>清洗极难</strong>（无标准拼写、无法用常规阿语 NLP 工具分词）——这正是"低资源数据工程"的典型问题</li>
+</ul>
+<h2>六、评测 case 设计方向（T7 模块）</h2>
+<table>
+<thead>
+<tr>
+<th>case 类型</th>
+<th>示例</th>
+<th>测什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基础解析</td>
+<td><code>3ayez a7giz tazkara le Riyadh bokra</code> → 转阿语并回答</td>
+<td>映射表掌握</td>
+</tr>
+<tr>
+<td>数字歧义</td>
+<td><code>3ndy 3 so2al</code></td>
+<td>上下文消歧</td>
+</tr>
+<tr>
+<td>方言区识别</td>
+<td><code>gamel awi</code> vs <code>jameel marra</code></td>
+<td>g/j 反推埃及 vs 海湾</td>
+</tr>
+<tr>
+<td>混排理解</td>
+<td><code>mumkin أشوف الـ menu?</code></td>
+<td>三语混合输入</td>
+</tr>
+<tr>
+<td>生成</td>
+<td>"用 Arabizi 回复这个埃及客户的投诉"</td>
+<td>生成能力+地域适配</td>
+</tr>
+<tr>
+<td>陷阱题</td>
+<td>埃及约定下含 <code>8</code> 的句子</td>
+<td>模型是否知道埃及不用 8</td>
+</tr>
+</tbody>
+</table>
+<h2>参考来源</h2>
+<ul>
+<li><a href="https://learntype.app/blog/arabizi-numbers-explained-2-3-5-6-7-9-and-the-arabic-sounds-they-represent">LearnType: Arabizi Numbers Explained</a></li>
+<li><a href="https://www.thearabickeyboard.com/franco-arabic-typing/">The Arabic Keyboard: Franco Arabic</a></li>
+<li><a href="https://kalimah-center.com/arabic-letters-in-numbers/">KALIMAH Center: Arabizi &amp; Franco Arabic</a></li>
+<li><a href="https://talkpal.ai/mastering-arabizi-the-ultimate-guide-to-writing-arabic-in-latin-script/">Talkpal: Mastering Arabizi</a></li>
+<li><a href="https://www.replai.now/blog/franco-arabic-arabizi-how-ai-understands-3arabi-text">ReplAi: Franco-Arabic, How AI Understands 3arabi Text</a></li>
+<li><a href="https://www.omlyar.com/blog/arabizi-guide">Omlyar: Beginner's Guide to Arabizi（地区差异）</a></li>
+</ul>
+</body></html>

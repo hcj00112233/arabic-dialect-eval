@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>rubric</title>
+<style>body{max-width:880px;margin:2rem auto;padding:0 1.2rem;font:16px/1.75 -apple-system,"PingFang SC",sans-serif;color:#1a1a1a}
+h1{font-size:1.5rem}h2{font-size:1.15rem;margin-top:2.2rem;border-top:1px solid #ddd;padding-top:1rem}
+code{background:#f3f3f3;padding:.1em .35em;border-radius:4px}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:.35em .7em}
+a{color:#2f4fbf}p,li{unicode-bidi:plaintext}</style></head><body>
+<p><a href="../report/%E9%98%BF%E8%AF%AD%E8%AF%84%E6%B5%8B%E6%8A%A5%E5%91%8A_%E8%83%A1%E7%BA%AF%E5%89%91.html">&larr; 返回评测报告</a> · <a href="../index.html">站点首页</a></p>
+<h1>阿语模型评测 Rubric v3（MSA / 沙特方言 / 埃及方言 三语体平行）</h1>
+<blockquote>
+<p>评测人：胡纯剑 | 目标：定位主流 LLM 在阿语三种核心语体上的能力边界，产出可归因、可反哺迭代的结论
+语体覆盖：<strong>MSA（现代标准阿拉伯语）</strong>、<strong>沙特方言（以利雅得/Najdi 为锚点）</strong>、<strong>埃及方言（以开罗为锚点）</strong>——三种语体在阿语世界各有不可替代的使用场景（书面正式/区域口语/泛阿拉伯文化输出），模型需在三种语体间准确切换且不串味</p>
+</blockquote>
+<h2>一、评测维度（每条 case 按适用维度打分，0-3 分）</h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>0 分</th>
+<th>1 分</th>
+<th>2 分</th>
+<th>3 分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D1 语体准确性</strong>（原方言能力）</td>
+<td>完全用错语体（该方言时给MSA，该MSA时给方言），或混用错误方言区</td>
+<td>主要语体偏离要求，仅零星符合</td>
+<td>基本为要求的语体，偶有其他语体渗入</td>
+<td>语体完全正确：MSA规范书面 / 沙特、埃及方言地道，句法用词语气均符合</td>
+</tr>
+<tr>
+<td><strong>D2 语域切换</strong></td>
+<td>未理解语域要求</td>
+<td>意识到要求但执行失败</td>
+<td>切换基本正确，个别用词不当</td>
+<td>正式(MSA)↔口语(方言)切换自然，敬语层级使用准确</td>
+</tr>
+<tr>
+<td><strong>D3 知识准确性</strong></td>
+<td>事实性错误（幻觉）</td>
+<td>部分事实错误但不影响主旨</td>
+<td>事实正确但不够精确</td>
+<td>事实准确、信息密度恰当</td>
+</tr>
+<tr>
+<td><strong>D4 文化适切性</strong></td>
+<td>触犯宗教/文化禁忌</td>
+<td>无明显禁忌但表达令母语者不适</td>
+<td>基本得体，缺少文化细腻度</td>
+<td>完全得体，敬语/避讳/语境处理到位</td>
+</tr>
+<tr>
+<td><strong>D5 推理质量</strong></td>
+<td>推理断裂或结论错误</td>
+<td>推理过程正确但阿语表达退化（翻译腔）</td>
+<td>推理正确、表达尚可</td>
+<td>用阿语完成高质量推理，无"英语思考痕迹"</td>
+</tr>
+<tr>
+<td><strong>D6 表达水准</strong></td>
+<td>机翻痕迹严重</td>
+<td>语法正确但明显非母语腔（MSA下表现为语法/搭配不规范，方言下表现为不地道）</td>
+<td>接近母语水平</td>
+<td>母语者盲评无法分辨为 AI 生成</td>
+</tr>
+</tbody>
+</table>
+<h2>二、任务类型与语体分布（目标 120-150 条，三语体大致均衡）</h2>
+<table>
+<thead>
+<tr>
+<th>任务类型</th>
+<th>MSA</th>
+<th>沙特</th>
+<th>埃及</th>
+<th>小计</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1 生成（写消息/帖子/正式文书）</td>
+<td>10</td>
+<td>10</td>
+<td>10</td>
+<td>30</td>
+<td>MSA 侧测正式文书（商务信函/公告/新闻稿），方言侧测社媒/私信</td>
+</tr>
+<tr>
+<td>T2 理解（解释/翻译方言或复杂书面语句子）</td>
+<td>8</td>
+<td>8</td>
+<td>8</td>
+<td>24</td>
+<td>MSA 侧测复杂句式/古典引文理解</td>
+</tr>
+<tr>
+<td>T3 语域切换（MSA↔方言双向改写）</td>
+<td>10</td>
+<td>5</td>
+<td>5</td>
+<td>20</td>
+<td>每个切换 case 固定涉及 MSA，双向都测</td>
+</tr>
+<tr>
+<td>T4 文化适切场景（宗教/社交/商务敬语）</td>
+<td>6</td>
+<td>7</td>
+<td>7</td>
+<td>20</td>
+<td>MSA 侧测正式致辞/宗教场合书面措辞</td>
+</tr>
+<tr>
+<td>T5 知识问答（历史/文化/时政）</td>
+<td>20</td>
+<td>-</td>
+<td>-</td>
+<td>20</td>
+<td>固定 MSA 提问 MSA 作答</td>
+</tr>
+<tr>
+<td>T6 推理（数学/逻辑/多步任务）</td>
+<td>8</td>
+<td>8</td>
+<td>8</td>
+<td>24</td>
+<td>三语体平行，测推理是否因语体降级</td>
+</tr>
+<tr>
+<td>T7 工程呈现层（RTL/混排/数字/符号）</td>
+<td>8</td>
+<td>4</td>
+<td>4</td>
+<td>16</td>
+<td>阿英混排输入、含数字价格的输出、代码块/列表混排、tashkeel、Arabizi 理解——测"语言正确但呈现/解析出错"的盲区</td>
+</tr>
+<tr>
+<td><strong>合计</strong></td>
+<td><strong>70</strong></td>
+<td><strong>42</strong></td>
+<td><strong>42</strong></td>
+<td><strong>154</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>三、判定与归因流程</h2>
+<ol>
+<li><strong>LLM-as-judge 初筛</strong>：judge 模型按 rubric 打分 + 给出理由；人评=judge 分歧 &gt; 1 分的 case 强制人工复核</li>
+<li><strong>专家复核</strong>：评测人对全部 bad case（任一维度 ≤1 分）及 20% 随机样本做人工判定，人工判定为最终结果</li>
+<li><strong>归因分类</strong>（每条 bad case 打标签）：</li>
+<li><code>A1 方言区混用</code>：目标方言内混入其他方言区特征</li>
+<li><code>A2 语体错配</code>：该用方言时退回 MSA，或该用 MSA 时渗入方言（双向都算）</li>
+<li><code>A3 翻译腔</code>：句法/搭配呈英语底层结构</li>
+<li><code>A4 敬语层级错误</code>：称谓/敬语与社交关系不匹配</li>
+<li><code>A5 文化幻觉</code>：虚构或错配地区文化事实</li>
+<li><code>A6 推理语言切换</code>：思考过程退化为英语/MSA，输出才转目标语体</li>
+<li><code>A7 事实错误</code>：可验证的客观错误</li>
+<li><code>A8 MSA 规范性错误</code>：语法、格位（إعراب）、搭配不规范等书面语硬伤</li>
+<li><code>A9 混排/呈现错误</code>：RTL 语境下数字、英文词、标点、Markdown 结构的方向/顺序错误；数字系统（٠١٢٣ vs 0123）与国家惯例不符</li>
+<li><code>A10 Arabizi/语码混用失败</code>：无法解析拉丁化阿语输入，或阿英混排输入下能力断崖下降</li>
+<li><strong>输出</strong>：每模型能力画像 = 各维度均分 + 归因分布 + 典型 bad case 示例</li>
+</ol>
+<h2>四、判定原则（评测人自律条款）</h2>
+<ul>
+<li>拿不准的 case 标 <code>uncertain</code>，宁缺毋滥，不硬判</li>
+<li>语体基准锚点：<strong>沙特方言（Najdi/利雅得城市受过教育者的日常口语）</strong>——本评测中"海湾方言"统一操作化为沙特方言，因海湾语料事实上由沙特主导，且评测人对海湾内部细分差异不作判定；埃及方言=开罗城市受过教育者的日常口语；MSA=当代规范书面语（以主流阿语媒体/正式文书为准）</li>
+<li>覆盖边界声明：海湾内部细分（科威特/阿联酋/卡塔尔）与马格里布方言不在本评测范围内，报告需注明此边界</li>
+<li>所有人工判定写一句依据，确保可复核、可解释</li>
+</ul>
+</body></html>
