@@ -23,7 +23,7 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 @media(max-width:600px){.topbar-inner{padding:12px 16px;min-height:66px}.brand-wordmark{font-size:17px}.brand-caption{display:none}.tools{font-size:11px}.tools button,.tools summary{padding:8px 9px;border-radius:7px}.layout{padding:0 16px 50px}.hero{padding:22px 0}.hero h1{font-size:31px}.hero h1 span{font-size:18px}.eyebrow{font-size:11px;margin-bottom:18px;gap:7px}.hero .meta{font-size:12px;line-height:1.9}.metrics{gap:18px 0;padding-bottom:24px}.metric{padding:0 16px}.metric-value{font-size:24px}.contents nav{grid-template-columns:repeat(2,minmax(0,1fr))}.paper-section{padding:24px 20px;margin-bottom:16px}.paper-section>h2{font-size:25px}.note{padding:16px}.source-note{font-size:12px}.key-findings p{font-size:.9375em}.settings-panel{right:-68px}table{font-size:13px}}
 @media print{.layout{display:block;padding:0}.chapter-nav,.contents{display:none}.hero{padding:0 0 18px}.hero h1{font-size:25pt}.hero h1 span{font-size:14pt}.paper-section{border:0;padding:0;margin:24px 0}.paper-section>h2{font-size:17pt}.metrics{padding-bottom:16px}.key-findings p{font-size:10pt}.source-note{font-size:8pt}table{font-size:9pt}}
 </style>
-<meta name="description" content="阿拉伯语大模型能力横评：154 条结构化 Case，DeepSeek-V3.2、Kimi K3 与 GPT-6 Astra 的同题实测、归因分析及干预实验。">
+<meta name="description" content="阿拉伯语大模型能力横评：154 条结构化 Case，DeepSeek-V4-Flash、Kimi K3 与 GPT-6 Astra 的同题实测、归因分析及干预实验。">
 </head>
 <body id="top"><a class="skip" href="#report">跳至报告正文</a>
 <div class="topbar"><div class="topbar-inner"><a class="brand" href="#top"><span class="brand-wordmark">LLM ARABIC STUDIES</span><span class="brand-caption">模型评测研究</span></a><div class="tools"><details class="settings"><summary>阅读设置</summary><div class="settings-panel"><label for="font-size">正文字号<select id="font-size"><option value="16">标准 · 16 px</option><option value="18">大字 · 18 px</option><option value="20">特大 · 20 px</option></select></label><label for="page-width">页面宽度<select id="page-width"><option value="920">舒展</option><option value="760">专注</option></select></label><p>阅读偏好自动保存在当前浏览器。</p></div></details><button id="print" type="button">打印 / PDF</button></div></div><div class="progress" aria-hidden="true"></div></div>
@@ -31,15 +31,15 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 <main class="wrap" id="report" tabindex="-1">
 
 <header class="hero">
-  <h1>阿拉伯语大模型能力横评<span>DeepSeek-V3.2 vs Kimi K3 vs GPT-6 Astra</span></h1>
+  <h1>阿拉伯语大模型能力横评<span>DeepSeek-V4-Flash vs Kimi K3 vs GPT-6 Astra</span></h1>
   <div class="sub">MSA / 沙特方言 / 埃及方言 三语体平行框架 · 154 条结构化 Case · 同 Case 集 + 同 Rubric + 同 Judge 的三模型对照</div>
 </header><div class="metrics" aria-label="评测规模"><div class="metric"><div class="metric-value">154<small>条</small></div><div class="metric-label">结构化 Case / 每个模型</div></div><div class="metric"><div class="metric-value">3<small>种</small></div><div class="metric-label">MSA · 沙特 · 埃及语体</div></div><div class="metric"><div class="metric-value">7<small>类</small></div><div class="metric-label">任务覆盖</div></div><div class="metric"><div class="metric-value">6<small>项</small></div><div class="metric-label">评分维度</div></div></div>
 
 <div class="chapter-nav"><nav aria-label="快速章节导航"><a href="#section-0" aria-current="true"><span>00</span>摘要</a><a href="#section-1"><span>01</span>评测设计</a><a href="#section-2"><span>02</span>横评实测发现</a><a href="#section-3"><span>03</span>评审管线与干预实验</a><a href="#section-4"><span>04</span>模型迭代建议</a><a href="#section-5"><span>05</span>方法论与局限</a></nav></div><section class="paper-section"><h2 id="section-0">摘要</h2>
-<div class="abstract-intro"><p>针对主流模型在阿语方言生成与语体区分上仍显薄弱、标准语与各国方言难以稳定切换的问题<a class="citation" href="#evidence-palm" aria-label="查看摘要数据依据">[1]</a>，独立设计 154 条结构化评测集与"机器初筛 + 人工深评"双层评审管线，完成 DeepSeek-V3.2、Kimi K3、GPT-6 Astra 三方全量横评：机器初筛 100% 覆盖、评审人力压减 57%，采纳率/幻觉率等指标量化到产品口径，以定位主流模型共同系统性短板，并产出按"提示词 / RAG / 微调"分路线、带代价评估的数据迭代方案。</p></div>
-<p>本评测面向主流 LLM 的阿语能力盲区设计：<strong>MSA / 沙特方言 / 埃及方言三语体平行框架</strong>，覆盖 7 类任务 × 6 个评分维度 × 10 类归因标签，共 154 条结构化 case。三个模型（DeepSeek-V3.2 / Kimi K3 / GPT-6 Astra）在<strong>同一 case 集、同一 rubric、同一 judge（deepseek-chat）</strong>下完成实测：各 154 条全量回答 + judge 全量初筛 + 人工层判定（DS / Kimi / Astra 分别为 67 / 67 / 72 条，三侧均已定稿）。</p>
+<div class="abstract-intro"><p>针对主流模型在阿语方言生成与语体区分上仍显薄弱、标准语与各国方言难以稳定切换的问题<a class="citation" href="#evidence-palm" aria-label="查看摘要数据依据">[1]</a>，独立设计 154 条结构化评测集与"机器初筛 + 人工深评"双层评审管线，完成 DeepSeek-V4-Flash、Kimi K3、GPT-6 Astra 三方全量横评：机器初筛 100% 覆盖、评审人力压减 57%，采纳率/幻觉率等指标量化到产品口径，以定位主流模型共同系统性短板，并产出按"提示词 / RAG / 微调"分路线、带代价评估的数据迭代方案。</p></div>
+<p>本评测面向主流 LLM 的阿语能力盲区设计：<strong>MSA / 沙特方言 / 埃及方言三语体平行框架</strong>，覆盖 7 类任务 × 6 个评分维度 × 10 类归因标签，共 154 条结构化 case。三个模型（DeepSeek-V4-Flash / Kimi K3 / GPT-6 Astra）在<strong>同一 case 集、同一 rubric、同一 judge（deepseek-chat）</strong>下完成实测：各 154 条全量回答 + judge 全量初筛 + 人工层判定（DS / Kimi / Astra 分别为 67 / 67 / 72 条，三侧均已定稿）。</p>
 <div class="key-findings"><h3>核心发现</h3>
-<p><strong>三方表现：Astra 在本轮人工层样本中采纳率最高，DeepSeek 次之，Kimi 的优势集中在部分文化与表达任务。</strong>GPT-6 Astra 采纳率 97.2%（70/72）、硬伤率 2.8%（2/72）；DeepSeek-V3.2 为 94.0%（63/67）、6.0%（4/67）；Kimi K3 为 89.6%（60/67）、9.0%（6/67）。三方 judge 全量总均分分别为 2.892 / 2.919 / 2.896，处于相近区间。人工层包含人工判定与 AI 代审，样本数量及人工判定占比不同，上述排序仅描述本轮样本表现。Kimi 在部分同题人工评语中获“细节更丰富 / 文采更好”的评价；Astra 虽整体采纳率较高，仍在 S-T2-02 漏掉略带讽刺的语用层次。</p>
+<p><strong>三方表现：Astra 在本轮人工层样本中采纳率最高，DeepSeek 次之，Kimi 的优势集中在部分文化与表达任务。</strong>GPT-6 Astra 采纳率 97.2%（70/72）、硬伤率 2.8%（2/72）；DeepSeek-V4-Flash 为 94.0%（63/67）、6.0%（4/67）；Kimi K3 为 89.6%（60/67）、9.0%（6/67）。三方 judge 全量总均分分别为 2.892 / 2.919 / 2.896，处于相近区间。人工层包含人工判定与 AI 代审，样本数量及人工判定占比不同，上述排序仅描述本轮样本表现。Kimi 在部分同题人工评语中获“细节更丰富 / 文采更好”的评价；Astra 虽整体采纳率较高，仍在 S-T2-02 漏掉略带讽刺的语用层次。</p>
 <p><strong>共性与差异：语体错配、敬语细节是三家共同短板，Arabizi 数字歧义不能再笼统归为三家共同问题。</strong>S-T3-05 的正式演讲→方言推文改写中，三个模型均未彻底摆脱标准语程式化表达；沙特官方敬语缺少 <span class="ar" lang="ar" dir="rtl">الملكي</span>（A4）也在三家同题出现。E-T7-04 中，DeepSeek 与 Kimi 均把 9 误读为 <span class="ar" lang="ar" dir="rtl">ق</span>，Astra 则是本轮三家中唯一零样本正确解码 9=<span class="ar" lang="ar" dir="rtl">ص</span> 的模型；这一单题结果不外推为全部 Arabizi 能力。易混史实幻觉在 DS/Kimi 中均有案例，Kimi 另出现波斯字母 <span class="ar" lang="ar" dir="rtl">گ</span> 渗入（2/154，DS 为 0）。</p>
 <p><strong>评审可靠性：三方结果都需要结合人工复核解读。</strong>DeepSeek 同源 judge 存在漏检；Kimi 与 Astra 均出现幻觉式扣分。Astra 的 S-T6-06 正确算术答案被判 D3/D5=0、S-T2-07 海湾通用表达被误判为埃及方言，两例已由人工复核推翻（详见 3.1）。另在 Kimi K3 的 3 条推理样本中，思维链拉丁字符占比为 76%–100%（详见 3.3）；这提示输出语体与推理过程语言可能分离，但字符占比不等同于英语推理比例。</p>
 </div>
@@ -70,10 +70,10 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 
 <h3>1.5 被测对象与选型理由</h3>
 <div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
-  <tr><th></th><th>DeepSeek-V3.2（deepseek-chat）</th><th>Kimi K3（k3-256k）</th><th>GPT-6 Astra（gpt-6-astra）</th></tr>
+  <tr><th></th><th>DeepSeek-V4-Flash（deepseek-chat）</th><th>Kimi K3（k3-256k）</th><th>GPT-6 Astra（gpt-6-astra）</th></tr>
   <tr><td>定位</td><td>国产开源代表，中东/阿语开发者生态中渗透率高</td><td>国产开放权重第一梯队，长上下文见长</td><td>OpenAI 最新旗舰（2026.09 发布），全球能力天花板参照系</td></tr>
-  <tr><td>参数规模</td><td>671B MoE / 37B 激活（公开）</td><td>开放权重（万亿级 MoE）</td><td>未公开</td></tr>
-  <tr><td>上下文</td><td>128K</td><td>256K</td><td>未公开</td></tr>
+  <tr><td>参数规模</td><td>284B MoE / 13B 激活（公开）</td><td>开放权重（万亿级 MoE）</td><td>未公开</td></tr>
+  <tr><td>上下文</td><td>1M</td><td>256K</td><td>未公开</td></tr>
   <tr><td>接入形态</td><td>API 按量计费（输入/输出每 M tokens 元级定价）</td><td>订阅额度 / API</td><td>ChatGPT 订阅（经 Codex CLI 逐条独立会话调用）</td></tr>
   <tr><td>实测吞吐</td><td colspan="3">各 154 条全部跑完：DS / Kimi 约 4-5 分钟（8 并发 API），Astra 约 24 分钟（4 并发独立会话），均满足批量评测场景</td></tr>
 </table></div>
@@ -137,7 +137,7 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 <h3>2.1 能力总览（同一 judge · 三侧全量对照）</h3>
 <div class="card">
 <div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
-  <tr><th>维度</th><th>DeepSeek-V3.2<br><span class="muted">judge 全量 154 条</span></th><th>Kimi K3<br><span class="muted">judge 全量 154 条</span></th><th>GPT-6 Astra<br><span class="muted">judge 全量 154 条</span></th></tr>
+  <tr><th>维度</th><th>DeepSeek-V4-Flash<br><span class="muted">judge 全量 154 条</span></th><th>Kimi K3<br><span class="muted">judge 全量 154 条</span></th><th>GPT-6 Astra<br><span class="muted">judge 全量 154 条</span></th></tr>
   <tr><td>D1 语体准确性</td><td class="win">2.99</td><td>2.97</td><td class="win">2.99</td></tr>
   <tr><td>D2 语域切换</td><td class="win">2.88</td><td>2.84</td><td>2.82</td></tr>
   <tr><td>D3 知识准确性</td><td class="win">2.91</td><td>2.88</td><td>2.88</td></tr>
@@ -149,7 +149,7 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 <div class="card">
 <p><strong>产品口径指标对照</strong>（人工层：DS 67 / Kimi 67 / Astra 72 条 = 人工判定 + AI 代审，方法对称）</p>
 <div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
-  <tr><th>指标</th><th>DeepSeek-V3.2</th><th>Kimi K3</th><th>GPT-6 Astra</th><th>口径说明</th></tr>
+  <tr><th>指标</th><th>DeepSeek-V4-Flash</th><th>Kimi K3</th><th>GPT-6 Astra</th><th>口径说明</th></tr>
   <tr><td>采纳率（同意 + 基本同意）</td><td>94.0%（63/67）</td><td>89.6%（60/67）</td><td class="win">97.2%（70/72）</td><td>人工层 DS 67 条（人工 9 + 代审 58）/ Kimi 67 条（人工 13 + 代审 54）/ Astra 72 条（人工 13 + 代审 59）</td></tr>
   <tr><td>硬伤率（判定"不同意"）</td><td>6.0%（4/67）</td><td>9.0%（6/67）</td><td class="win">2.8%（2/72）</td><td>Astra 两条硬伤：E-T3-05 医嘱"戒糖"弱化为"减糖"（A7）+ E-T2-06 «لأ» 拼写应为 «لا»（A8）</td></tr>
   <tr><td>幻觉率（A7 事实错误）</td><td>1.5%（1/67）<br><span class="muted">judge 层另见下注</span></td><td>1.5%（1/67）<br><span class="muted">judge 层 1.9%（3/154）</span></td><td>1.4%（1/72）</td><td>人工层三方基本持平（各 1 条 A7）</td></tr>
@@ -310,7 +310,7 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 
 <h3>3.4 可复现性与污染声明</h3>
 <ul>
-  <li><strong>版本与参数</strong>：deepseek-chat（2026-09 调用快照，V3.2）/ k3-256k；DS temperature=0.3，K3 接口强制 temperature=1；judge temperature=0；</li>
+  <li><strong>版本与参数</strong>：deepseek-chat（2026-09 调用快照；自 2026-04-24 V4 发布起，deepseek-chat 为过渡别名，实际指向 deepseek-v4-flash 非思考模式）/ k3-256k；DS temperature=0.3，K3 接口强制 temperature=1；judge temperature=0；</li>
   <li><strong>结构化输出</strong>：judge JSON 解析成功率 308/308（154 × 2 模型），无解析失败重试；</li>
   <li><strong>污染声明</strong>：case 集为 2026-09 新写、从未公开，进入两模型训练集的风险极低；rubric、gold 标准、全部原始回答、judge 输出、人工层判定逐条 JSONL 存档，评测管线一键重跑 &lt; 10 分钟；</li>
   <li><strong>已知工程局限（下一步）</strong>：单采样（n=1）未测输出方差（K3 temperature=1 下结论的稳定性需 n≥3 验证）；单一 judge 未做 cross-judge 交叉验证；代审层（171 条）未经人工抽检校准。</li>

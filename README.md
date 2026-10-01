@@ -1,6 +1,6 @@
 # Arabic Dialect Eval — 阿语方言语体能力三模型横评
 
-**LLM Arabic Studies** ｜ DeepSeek-V3.2 · Kimi K3 · GPT-6 Astra 三模型阿拉伯语综合能力横评
+**LLM Arabic Studies** ｜ DeepSeek-V4-Flash · Kimi K3 · GPT-6 Astra 三模型阿拉伯语综合能力横评
 
 📄 **在线报告（完整结论与交互式对照）**：https://hcj00112233.github.io/arabic-dialect-eval/
 
@@ -15,7 +15,7 @@
 
 ## 核心结论（人工层）
 
-| 指标 | DeepSeek-V3.2 | Kimi K3 | GPT-6 Astra |
+| 指标 | DeepSeek-V4-Flash | Kimi K3 | GPT-6 Astra |
 |---|---|---|---|
 | 采纳率（同意+基本同意） | 94.0% | 89.6% | **97.2%** |
 | 硬伤率 | 6.0% | 9.0% | **2.8%** |
