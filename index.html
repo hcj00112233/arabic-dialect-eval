@@ -329,6 +329,7 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 </section><section class="paper-section"><h2 id="section-5">五、方法论说明与局限</h2>
 <p><strong>诚实条款</strong>：</p>
 <ul>
+  <li>本评测为个人独立完成的项目：case 设计、Gold 标准、人工复核均为同一人。偏倚控制方式为"标准先行"——rubric（D1–D6 / A1–A10）与判定口径在任何模型回答产出之前定稿，judge 初筛在先、人工复核在后，人工判定只看回答与 rubric、不看模型标签。本项目的定位是验证一套可规模化的评测框架与管线，多人标注与一致性校准（IAA / kappa）是框架落地团队化后的下一步，已列入四步方案；</li>
   <li>两侧人工层规模对称（各 67 条）但人工判定占比不同：DS 人工 9 + AI 代审 58，Kimi 人工 13 + AI 代审 54，Astra 人工 13 + AI 代审 59。<strong>三侧代审条目均未经人工逐条复核</strong>（时间约束），逐条存档于 ds_verdicts.json / kimi3_verdicts.json / gpt6astra_verdicts.json 并与人工判定分开标注，可按需抽检；DS 另有 11 条早期人工判定信号，其中 2 条（S-T1-01/S-T1-02）在 67 集之外，未计入采纳率；</li>
   <li>生成参数不完全对齐：Kimi K3 接口强制 temperature=1，DeepSeek 侧为 0.3——温度直接影响输出多样性与创意类任务（T1）的发散度，对比解读时已计入此变量；</li>
   <li>成本数字（2.8 节）为按公开定价与实测 token 量的工程估算，用于说明量级而非精确对账；</li>
