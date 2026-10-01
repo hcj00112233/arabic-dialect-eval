@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿拉伯语大模型能力横评：DeepSeek vs Kimi K3 vs GPT-6 Astra | Aaron</title>
+<style>
+:root{--accent:#294da8;--ink:#252525;--muted:#686868;--bg:#f8f7f5;--card:#ffffff;--line:#e2e1df;--good:#286d50;--bad:#a33e36;--kimi:#49657c;--reading-size:16px;--reading-width:920px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.9;font-size:var(--reading-size);font-variant-numeric:tabular-nums}a{color:var(--accent);text-underline-offset:4px}a:hover{color:#19377d}button,select{font:inherit;color:inherit}button,summary,select{cursor:pointer}a,button,select,summary{transition:background .18s,color .18s} :focus-visible{outline:3px solid #294da8;outline-offset:4px}button:active{transform:translateY(1px)}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.98);border-bottom:1px solid var(--line)}.topbar-inner{max-width:1360px;margin:auto;min-height:70px;padding:12px 36px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{text-decoration:none;display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;letter-spacing:.04em}.brand-mark{display:grid;place-items:center;width:30px;height:30px;background:var(--accent);color:white;font-family:Georgia,serif;font-size:21px}.tools{display:flex;gap:10px;align-items:center;font-size:13px}.tools button,.tools summary{padding:8px 14px;border:1px solid var(--line);border-radius:5px;background:var(--card);min-height:40px}.tools button:hover,.tools summary:hover{background:#f0f2f8}.settings{position:relative}.settings summary{list-style:none}.settings summary::-webkit-details-marker{display:none}.settings-panel{position:absolute;right:0;top:52px;width:250px;padding:20px;background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:0 12px 30px #25252514}.settings-panel label{display:block;margin-bottom:14px}.settings-panel select{display:block;width:100%;margin-top:5px;padding:8px;background:white;border:1px solid var(--line);border-radius:4px}.settings-panel p{font-size:12px;color:var(--muted);margin:0}.progress{height:2px;background:var(--accent);transform-origin:left;transform:scaleX(0)}
+.layout{max-width:1360px;display:grid;grid-template-columns:200px minmax(0,1fr);gap:56px;margin:auto;padding:48px 36px 90px}.contents{align-self:start;position:sticky;top:114px}.contents summary{font-size:12px;font-weight:600;letter-spacing:.16em;color:var(--muted);list-style:none;padding:0 12px 18px}.contents summary::-webkit-details-marker{display:none}.contents nav{display:grid;gap:5px}.contents a{display:flex;gap:10px;text-decoration:none;font-size:13px;line-height:1.6;padding:11px 12px;border-left:2px solid transparent;color:var(--muted)}.contents a span{font-size:11px;font-family:Menlo,monospace;opacity:.7;padding-top:2px}.contents a:hover{background:#f2f3f6;color:var(--accent)}.contents a[aria-current=true]{color:var(--accent);background:#eef1f8;border-left-color:var(--accent);font-weight:600}.contents-foot{border-top:1px solid var(--line);padding:20px 12px;margin-top:24px;font-size:12px;color:var(--muted)}.contents-foot strong{font-weight:500;display:block;color:var(--ink)}
+.wrap{min-width:0;width:100%;max-width:var(--reading-width);margin:auto}.hero{padding:10px 0 36px;border-bottom:1px solid var(--line);margin-bottom:30px}.eyebrow{font-size:11px;letter-spacing:.2em;font-weight:600;color:var(--accent);margin-bottom:22px}.hero h1{font-size:clamp(28px,3vw,42px);letter-spacing:-.04em;line-height:1.3;margin:0 0 22px;font-weight:650;text-wrap:balance}.hero h1 span{display:block;font-size:.58em;letter-spacing:-.02em;font-weight:500;margin-top:14px;color:var(--accent)}.hero .sub{font-size:14px;line-height:1.85;color:var(--muted);max-width:700px}.hero .meta{margin-top:20px;color:var(--muted);font-size:12px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);padding:24px 0;border-bottom:1px solid var(--line);margin-bottom:38px}.metric{padding:0 20px;border-left:1px solid var(--line)}.metric:first-child{border-left:0;padding-left:0}.metric-value{font:38px/1.2 Georgia,serif;color:var(--accent)}.metric-label{font-size:12px;color:var(--muted);margin-top:8px}.metric-value small{font:14px -apple-system,sans-serif;margin-left:5px}h2{font-size:25px;line-height:1.5;margin:64px 0 24px;letter-spacing:-.025em;border-top:1px solid var(--line);padding-top:30px;text-wrap:balance;scroll-margin-top:20px}h2:first-of-type{margin-top:0;border-top:0;padding-top:0}h3{font-size:18px;line-height:1.65;margin:34px 0 14px;font-weight:650;scroll-margin-top:20px}p{margin:16px 0;overflow-wrap:anywhere}strong{font-weight:650}ul{padding-left:24px;margin:16px 0}li{margin:9px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:22px 24px;margin:22px 0}.table-scroll{max-width:100%;overflow-x:auto;margin:22px 0;border:1px solid var(--line);border-radius:5px;background:var(--card)}table{width:100%;border-collapse:collapse;font-size:.875em;line-height:1.8;margin:0;min-width:580px}th,td{padding:14px 16px;text-align:left;vertical-align:top;border:0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}th{background:#f4f4f3;color:#333333;font-weight:600}td+td,th+th{border-left:1px solid #e8e8e6}tr:last-child td{border-bottom:0}tr:nth-child(odd) td{background:#fafaf9}tr:hover td{background:#f2f4f8}td.win{color:var(--good);font-weight:700}.card .table-scroll{margin:8px 0 18px}.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:12px;font-weight:600;margin-right:6px;line-height:1.6}.tag.good{background:#e2eee0;color:var(--good)}.tag.bad{background:#f7e8e2;color:var(--bad)}.tag.info,.tag.ds{background:#e2eee6;color:var(--accent)}.tag.kimi{background:#e8eef1;color:var(--kimi)}blockquote{margin:16px 0;padding:16px 20px;border-right:3px solid var(--accent);background:#f6f6f4;border-radius:3px;font-size:.9375em}.ar{direction:rtl;unicode-bidi:isolate;font-family:"Geeza Pro","Noto Naskh Arabic","Amiri","Traditional Arabic",serif;font-size:1.15em;line-height:2.1}.caseid{font-family:Menlo,monospace;font-size:13px;color:var(--accent);font-weight:600}.muted{color:var(--muted);font-size:.84375em}.note{background:#f5f5f3;border:0;border-left:3px solid #aab2c7;border-radius:0 5px 5px 0;padding:22px 26px;font-size:.9375em;margin:22px 0;line-height:1.95}.note strong:first-child{color:var(--accent)}footer{border-top:1px solid var(--line);margin-top:60px;padding-top:22px;color:var(--muted);font-size:12px}.skip{position:fixed;left:12px;top:-100px;background:white;padding:12px;z-index:30}.skip:focus{top:10px}.backtop{position:fixed;bottom:24px;right:24px;border:1px solid var(--line);border-radius:5px;background:var(--card);padding:9px 14px;text-decoration:none;font-size:13px;box-shadow:0 4px 16px #2525250a}
+@media(min-width:1101px){.contents summary{pointer-events:none}}
+@media(max-width:1100px){.layout{grid-template-columns:minmax(0,1fr);gap:28px;max-width:1000px;padding-top:24px}.contents{position:static}.contents summary{padding:10px 0;cursor:pointer}.contents nav{grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line);padding-bottom:16px}.contents-foot{display:none}.hero{padding-top:8px}}
+@media(max-width:600px){.topbar-inner{padding:10px 18px;gap:8px}.brand{font-size:11px;letter-spacing:0;gap:7px}.brand-mark{width:26px;height:26px}.tools{gap:6px;font-size:12px}.tools button,.tools summary{padding:8px 10px}.layout{padding:18px 20px 70px;gap:22px}.contents nav{grid-template-columns:repeat(2,minmax(0,1fr))}.contents a{font-size:12px;padding:9px}.hero h1{font-size:30px}.hero h1 span{font-size:18px}.eyebrow{font-size:10px;margin-bottom:18px}.hero .meta{font-size:11px}.metrics{grid-template-columns:repeat(2,1fr);gap:22px 0}.metric{padding-left:22px}.metric:nth-child(3){padding-left:0;border:0}.metric-value{font-size:34px}h2{font-size:23px;margin-top:46px}h3{font-size:18px}.note{padding:18px}.card{padding:16px 14px}.backtop{bottom:14px;right:14px;font-size:12px}.settings-panel{right:-66px}.table-scroll{background:var(--card)}th,td{padding:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+@media print{@page{margin:16mm}html{scroll-behavior:auto}body{background:white;font-size:10pt;color:#182a24}.topbar,.contents,.backtop,.skip{display:none!important}.layout{display:block;padding:0;max-width:none}.wrap{max-width:none}.hero{padding:0 0 20px}.hero h1{font-size:25pt}.metrics{padding:16px 0}.metric-value{font-size:24pt}h2{font-size:17pt;break-after:avoid;margin-top:26px}h3{font-size:13pt;break-after:avoid}p,li{orphans:3;widows:3}.card{padding:12px;break-inside:auto}.table-scroll{overflow:visible}table{min-width:0;font-size:9pt}th,td{padding:7px;overflow-wrap:anywhere}tr,blockquote{break-inside:avoid}.note{padding:12px 16px}a{color:inherit;text-decoration:none}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* Academic reading layout, informed by the supplied Arabic Studies reference. */
+body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14px 40px}.brand{color:#292929;gap:18px}.brand-wordmark{font:700 24px/1 Georgia,"Times New Roman",serif;letter-spacing:-.035em}.brand-caption{font-size:12px;font-weight:400;letter-spacing:0;color:#777;border-left:1px solid var(--line);padding-left:18px}.tools button,.tools summary{border-color:#a8b4d2;border-radius:10px;color:var(--accent);background:#fff;padding:9px 18px}.tools #print{background:var(--accent);border-color:var(--accent);color:white}.tools #print:hover{background:#213e86}.layout{display:flex;flex-direction:column;gap:0;max-width:1200px;padding:0 40px 80px}.wrap{max-width:var(--reading-width);order:0}.contents{order:1;position:static;width:100%;max-width:var(--reading-width);margin:34px auto 0}.contents summary{pointer-events:auto;letter-spacing:0;font-size:14px;padding:12px 0}.contents nav{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}.contents a{border:0;border-bottom:2px solid transparent;border-radius:0;padding:12px}.contents a[aria-current=true]{border-left:0;border-bottom-color:var(--accent)}.contents-foot{display:none}.hero{padding:54px 0 28px;margin:0;border:0}.eyebrow{font-size:12px;letter-spacing:0;font-weight:400;color:#666;margin-bottom:24px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.hero h1{font-family:"Songti SC","Noto Serif CJK SC",STSong,Georgia,serif;font-weight:500;font-size:clamp(30px,3.4vw,46px);line-height:1.35;letter-spacing:-.04em;margin-bottom:22px}.hero h1 span{font-family:Georgia,"Times New Roman",serif;font-size:22px;color:#555;line-height:1.5;font-weight:400;letter-spacing:0;margin-top:14px}.hero .sub{max-width:none;font-size:14px;color:#555}.hero .meta{font-size:13px;margin-top:14px;color:#333}.metrics{padding:0 0 28px;margin:0;gap:0;border:0}.metric{padding:0 18px}.metric-value{font:500 22px/1.4 Georgia,serif;color:#333}.metric-value small{font-size:12px}.metric-label{margin-top:3px;color:#777;font-size:11px}.chapter-nav{margin:0 0 28px;border-bottom:1px solid var(--line);background:transparent}.chapter-nav nav{display:flex;flex-wrap:wrap;gap:0}.chapter-nav a{font-size:12px;text-decoration:none;padding:12px 13px;border-bottom:2px solid transparent;color:#666}.chapter-nav a:first-child{padding-left:0}.chapter-nav a[aria-current=true]{color:var(--accent);border-bottom-color:var(--accent)}.chapter-nav a:hover{color:var(--accent);background:#f0f1f4}.chapter-nav a span{display:none}.paper-section{background:#fff;border:1px solid #ededea;border-radius:5px;padding:32px 36px;margin:0 0 24px}.paper-section>h2{font-family:"Songti SC",STSong,Georgia,serif;font-weight:600;font-size:27px;border:0;padding:0;margin:0 0 22px;line-height:1.5}h3{font-size:18px;margin:30px 0 14px;color:#292929}p{margin:14px 0}.abstract-intro p{margin-top:0;font-size:1em;line-height:1.95}.citation{font-size:12px;vertical-align:super;margin-left:3px;text-decoration:none}.key-findings{margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}.key-findings h3{margin:0 0 16px;font-size:18px}.key-findings p{margin:0 0 20px;font-size:.9375em;line-height:1.95}.key-findings p:last-child{margin-bottom:0}.source-note{margin:26px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:#666;line-height:1.8;scroll-margin-top:105px}.card{border:0;border-bottom:1px solid var(--line);padding:8px 0 22px;border-radius:0;margin:20px 0;background:transparent}.note{background:#f7f7f5;border-left:2px solid #bbc2d2;padding:18px 22px}.note strong:first-child{color:#333}table{font-size:.8125em;line-height:1.85}th,td{padding:12px 13px}th{font-weight:600}td+td,th+th{border-left:0}footer{margin-top:34px}.backtop{box-shadow:none;border-radius:7px;color:#666}
+@media(min-width:1101px){.contents{display:none}}
+@media(max-width:1100px){.layout{padding:0 28px 70px}.contents{order:-1;margin:16px auto 0}.contents nav{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding-top:26px}.chapter-nav{display:none}}
+@media(max-width:600px){.topbar-inner{padding:12px 16px;min-height:66px}.brand-wordmark{font-size:17px}.brand-caption{display:none}.tools{font-size:11px}.tools button,.tools summary{padding:8px 9px;border-radius:7px}.layout{padding:0 16px 50px}.hero{padding:22px 0}.hero h1{font-size:31px}.hero h1 span{font-size:18px}.eyebrow{font-size:11px;margin-bottom:18px;gap:7px}.hero .meta{font-size:12px;line-height:1.9}.metrics{gap:18px 0;padding-bottom:24px}.metric{padding:0 16px}.metric-value{font-size:24px}.contents nav{grid-template-columns:repeat(2,minmax(0,1fr))}.paper-section{padding:24px 20px;margin-bottom:16px}.paper-section>h2{font-size:25px}.note{padding:16px}.source-note{font-size:12px}.key-findings p{font-size:.9375em}.settings-panel{right:-68px}table{font-size:13px}}
+@media print{.layout{display:block;padding:0}.chapter-nav,.contents{display:none}.hero{padding:0 0 18px}.hero h1{font-size:25pt}.hero h1 span{font-size:14pt}.paper-section{border:0;padding:0;margin:24px 0}.paper-section>h2{font-size:17pt}.metrics{padding-bottom:16px}.key-findings p{font-size:10pt}.source-note{font-size:8pt}table{font-size:9pt}}
+</style>
+<meta name="description" content="阿拉伯语大模型能力横评：154 条结构化 Case，DeepSeek-V3.2、Kimi K3 与 GPT-6 Astra 的同题实测、归因分析及干预实验。">
+</head>
+<body id="top"><a class="skip" href="#report">跳至报告正文</a>
+<div class="topbar"><div class="topbar-inner"><a class="brand" href="#top"><span class="brand-wordmark">LLM ARABIC STUDIES</span><span class="brand-caption">模型评测研究</span></a><div class="tools"><details class="settings"><summary>阅读设置</summary><div class="settings-panel"><label for="font-size">正文字号<select id="font-size"><option value="16">标准 · 16 px</option><option value="18">大字 · 18 px</option><option value="20">特大 · 20 px</option></select></label><label for="page-width">页面宽度<select id="page-width"><option value="920">舒展</option><option value="760">专注</option></select></label><p>阅读偏好自动保存在当前浏览器。</p></div></details><button id="print" type="button">打印 / PDF</button></div></div><div class="progress" aria-hidden="true"></div></div>
+<div class="layout"><aside class="contents"><details open id="contents"><summary>报告目录</summary><nav aria-label="报告章节"><a href="#section-0" aria-current="true"><span>00</span>摘要</a><a href="#section-1"><span>01</span>评测设计</a><a href="#section-2"><span>02</span>横评实测发现</a><a href="#section-3"><span>03</span>评审管线与干预实验</a><a href="#section-4"><span>04</span>模型迭代建议</a><a href="#section-5"><span>05</span>方法论与局限</a></nav></details><div class="contents-foot"><strong>ARABIC LANGUAGE EVALUATION</strong>三语体 · 三模型 · 同题对照</div></aside>
+<main class="wrap" id="report" tabindex="-1">
+
+<header class="hero"><div class="eyebrow">语言与语言学 <span aria-hidden="true">›</span> 阿拉伯语研究 <span aria-hidden="true">›</span> 模型能力评测</div>
+  <h1>阿拉伯语大模型能力横评<span>DeepSeek-V3.2 vs Kimi K3 vs GPT-6 Astra</span></h1>
+  <div class="sub">MSA / 沙特方言 / 埃及方言 三语体平行框架 · 154 条结构化 Case · 同 Case 集 + 同 Rubric + 同 Judge 的三模型对照</div>
+</header><div class="metrics" aria-label="评测规模"><div class="metric"><div class="metric-value">154<small>条</small></div><div class="metric-label">结构化 Case / 每个模型</div></div><div class="metric"><div class="metric-value">3<small>种</small></div><div class="metric-label">MSA · 沙特 · 埃及语体</div></div><div class="metric"><div class="metric-value">7<small>类</small></div><div class="metric-label">任务覆盖</div></div><div class="metric"><div class="metric-value">6<small>项</small></div><div class="metric-label">评分维度</div></div></div>
+
+<div class="chapter-nav"><nav aria-label="快速章节导航"><a href="#section-0" aria-current="true"><span>00</span>摘要</a><a href="#section-1"><span>01</span>评测设计</a><a href="#section-2"><span>02</span>横评实测发现</a><a href="#section-3"><span>03</span>评审管线与干预实验</a><a href="#section-4"><span>04</span>模型迭代建议</a><a href="#section-5"><span>05</span>方法论与局限</a></nav></div><section class="paper-section"><h2 id="section-0">摘要</h2>
+<div class="abstract-intro"><p>针对主流模型在阿语方言生成与语体区分上仍显薄弱、标准语与各国方言难以稳定切换的问题<a class="citation" href="#evidence-palm" aria-label="查看摘要数据依据">[1]</a>，独立设计 154 条结构化评测集与"机器初筛 + 人工深评"双层评审管线，完成 DeepSeek-V3.2、Kimi K3、GPT-6 Astra 三方全量横评：机器初筛 100% 覆盖、评审人力压减 57%，采纳率/幻觉率等指标量化到产品口径，以定位主流模型共同系统性短板，并产出按"提示词 / RAG / 微调"分路线、带代价评估的数据迭代方案。</p></div>
+<p>本评测面向主流 LLM 的阿语能力盲区设计：<strong>MSA / 沙特方言 / 埃及方言三语体平行框架</strong>，覆盖 7 类任务 × 6 个评分维度 × 10 类归因标签，共 154 条结构化 case。三个模型（DeepSeek-V3.2 / Kimi K3 / GPT-6 Astra）在<strong>同一 case 集、同一 rubric、同一 judge（deepseek-chat）</strong>下完成实测：各 154 条全量回答 + judge 全量初筛 + 人工层判定（DS / Kimi / Astra 分别为 67 / 67 / 72 条，三侧均已定稿）。</p>
+<div class="key-findings"><h3>核心发现</h3>
+<p><strong>三方表现：Astra 在本轮人工层样本中采纳率最高，DeepSeek 次之，Kimi 的优势集中在部分文化与表达任务。</strong>GPT-6 Astra 采纳率 97.2%（70/72）、硬伤率 2.8%（2/72）；DeepSeek-V3.2 为 94.0%（63/67）、6.0%（4/67）；Kimi K3 为 89.6%（60/67）、9.0%（6/67）。三方 judge 全量总均分分别为 2.892 / 2.919 / 2.896，处于相近区间。人工层包含人工判定与 AI 代审，样本数量及人工判定占比不同，上述排序仅描述本轮样本表现。Kimi 在部分同题人工评语中获“细节更丰富 / 文采更好”的评价；Astra 虽整体采纳率较高，仍在 S-T2-02 漏掉略带讽刺的语用层次。</p>
+<p><strong>共性与差异：语体错配、敬语细节是三家共同短板，Arabizi 数字歧义不能再笼统归为三家共同问题。</strong>S-T3-05 的正式演讲→方言推文改写中，三个模型均未彻底摆脱标准语程式化表达；沙特官方敬语缺少 <span class="ar" lang="ar" dir="rtl">الملكي</span>（A4）也在三家同题出现。E-T7-04 中，DeepSeek 与 Kimi 均把 9 误读为 <span class="ar" lang="ar" dir="rtl">ق</span>，Astra 则是本轮三家中唯一零样本正确解码 9=<span class="ar" lang="ar" dir="rtl">ص</span> 的模型；这一单题结果不外推为全部 Arabizi 能力。易混史实幻觉在 DS/Kimi 中均有案例，Kimi 另出现波斯字母 <span class="ar" lang="ar" dir="rtl">گ</span> 渗入（2/154，DS 为 0）。</p>
+<p><strong>评审可靠性：三方结果都需要结合人工复核解读。</strong>DeepSeek 同源 judge 存在漏检；Kimi 与 Astra 均出现幻觉式扣分。Astra 的 S-T6-06 正确算术答案被判 D3/D5=0、S-T2-07 海湾通用表达被误判为埃及方言，两例已由人工复核推翻（详见 3.1）。另在 Kimi K3 的 3 条推理样本中，思维链拉丁字符占比为 76%–100%（详见 3.3）；这提示输出语体与推理过程语言可能分离，但字符占比不等同于英语推理比例。</p>
+</div>
+<p class="source-note" id="evidence-palm"><strong>[1] 问题依据：</strong><a href="https://arxiv.org/html/2503.00151v2#S5.SS1">PALM（2025），§5.1 / 表 2</a>发现，其受测模型面对方言阿语指令时，约 90% 的回答仍使用现代标准阿语（MSA）；表中 GPT-4o 与 Claude-3.5-Sonnet 的方言一致性分别为 8.33% 和 9.44%。该数据支持“方言输出与语体跟随仍有短板”，不直接证明模型无法理解方言，也不是本报告三款模型的实测值。</p>
+
+</section><section class="paper-section"><h2 id="section-1">一、评测设计</h2>
+
+<h3>1.1 三语体框架</h3>
+<p>阿语不是单一语言而是<strong>语体连续体</strong>，模型必须在三种语体间准确切换：</p>
+<div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
+  <tr><th>语体</th><th>锚点</th><th>典型场景</th><th>数据现状</th></tr>
+  <tr><td>MSA</td><td>当代规范书面语</td><td>新闻、公文、正式演讲</td><td>语料充足</td></tr>
+  <tr><td>沙特方言</td><td>利雅得 / Najdi</td><td>社媒、日常交流、客服</td><td>海湾语料中占主导；人均 GDP 约为埃及 10 倍，付费用户潜力高</td></tr>
+  <tr><td>埃及方言</td><td>开罗</td><td>社媒、日常交流、客服、影视</td><td>方言中语料最多</td></tr>
+</table></div>
+<p class="muted">覆盖边界声明：海湾内部细分（科威特/阿联酋/卡塔尔）与马格里布方言不在本期范围内；马格里布 Arabizi 底层为法语正字法，是独立体系。</p>
+
+<h3>1.2 评分维度（0-3 分）与归因体系</h3>
+<p><strong>D1 语体准确性</strong> · <strong>D2 语域切换</strong> · <strong>D3 知识准确性</strong> · <strong>D4 文化适切性</strong> · <strong>D5 推理质量</strong> · <strong>D6 表达水准</strong>（母语者盲评标准）</p>
+<p class="muted">归因十分类：A1 方言区混用 / A2 语体错配 / A3 翻译腔 / A4 敬语层级错误 / A5 文化幻觉 / A6 推理语言切换 / A7 事实错误 / A8 MSA 规范性错误 / A9 混排-呈现错误 / A10 Arabizi 解析失败</p>
+<p class="muted">归因标签同时对应<strong>问题定位框架</strong>：数据层（A5 文化幻觉 / A7 事实错误）、模型层（A1 / A2 / A6 / A3）、提示词层（指令遵循偏差，如一条推文输出四条）、呈现/工程层（A9 / A10）——每条 bad case 先定位出在哪一层，再决定修复路线（补数据 / 调提示词 / 挂核查层 / 改解码），这与线上问题排查是同一套动作。</p>
+
+<h3>1.3 Case 集构成（154 条）</h3>
+<p>T1 生成 30 · T2 理解 24 · T3 语域切换 20 · T4 文化适切 20 · T5 知识 20 · T6 推理 24 · <strong>T7 工程呈现层 16</strong>。难度 easy:medium:hard ≈ 4:4:2；case 标注来源（expert / draft），标注为 expert 的题目来自一线真实场景。三个模型跑完全相同的 154 条，回答逐条存档。</p>
+
+<h3>1.4 方法亮点：T7 工程呈现层</h3>
+<p>主流评测集系统缺失的盲区：RTL 双向渲染下数字/英文/标点的顺序错乱、东阿拉伯数字（<span class="ar" lang="ar" dir="rtl">٠١٢٣</span>）与西阿拉伯数字（0123）的国家惯例分裂（埃及用前者、海湾用后者）、tashkeel 发音符号、<strong>Arabizi</strong>（拉丁化阿语，映射规则绑定方言发音——埃及 <span class="ar" lang="ar" dir="rtl">ق</span>→2、海湾 <span class="ar" lang="ar" dir="rtl">غ</span>→8，拼写自带方言区指纹）。</p>
+
+<h3>1.5 被测对象与选型理由</h3>
+<div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
+  <tr><th></th><th>DeepSeek-V3.2（deepseek-chat）</th><th>Kimi K3（k3-256k）</th><th>GPT-6 Astra（gpt-6-astra）</th></tr>
+  <tr><td>定位</td><td>国产开源代表，中东/阿语开发者生态中渗透率高</td><td>国产开放权重第一梯队，长上下文见长</td><td>OpenAI 最新旗舰（2026.09 发布），全球能力天花板参照系</td></tr>
+  <tr><td>参数规模</td><td>671B MoE / 37B 激活（公开）</td><td>开放权重（万亿级 MoE）</td><td>未公开</td></tr>
+  <tr><td>上下文</td><td>128K</td><td>256K</td><td>未公开</td></tr>
+  <tr><td>接入形态</td><td>API 按量计费（输入/输出每 M tokens 元级定价）</td><td>订阅额度 / API</td><td>ChatGPT 订阅（经 Codex CLI 逐条独立会话调用）</td></tr>
+  <tr><td>实测吞吐</td><td colspan="3">各 154 条全部跑完：DS / Kimi 约 4-5 分钟（8 并发 API），Astra 约 24 分钟（4 并发独立会话），均满足批量评测场景</td></tr>
+</table></div>
+<p class="muted">选型逻辑：DeepSeek 与 Kimi 代表国产模型两种主流开放形态（开源按量 API vs 开放权重），且都在中东出海场景真实被使用；Astra 作为国际旗舰参照系，回答"国产模型与全球天花板的差距在哪"。同 case 集 + 同 rubric + 同 judge 保证可比性。生成参数差异已记录：DeepSeek 侧 temperature=0.3，Kimi K3 接口强制 temperature=1，Astra 侧为 Codex CLI 默认档（medium reasoning effort）（详见诚实条款）。</p>
+
+<h3>1.6 与现有评测基准的对标与选型判断</h3>
+<p>动手设计前，我系统调研了 2024 年以来阿语评测方向的主要公开工作，并逐篇核对了一手论文原文（共 8 篇，arXiv PDF 已存档）。<strong>结论先行：现有基准无法直接满足"定位生成式方言短板、反哺产品迭代"的目标</strong>——它们要么是理解型选择题，要么是文化知识问答，没有一家把真实场景生成、语域切换和工程呈现层放在一起测。但每篇工作都给了我有实证依据的设计输入，下表是"证据 → 判断 → 动作"的完整链路：</p>
+<div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
+  <tr><th style="width:34%">论文证据（已核对原文）</th><th style="width:30%">我的判断</th><th style="width:36%">落到本评测的动作</th></tr>
+  <tr>
+    <td><a href="https://arxiv.org/abs/2503.00231">Jawaher</a>（UBC/MBZUAI 2025）实测：引入 GPT-4o 做 judge 后，人机一致性 Krippendorff's α 从 0.957 崩到 0.195，作者被迫弃用 judge 分数</td>
+    <td>阿语方言场景下裸 LLM-as-judge 不可信，这已有学术实证，不是直觉</td>
+    <td>采用"judge 初筛 + 双层人工评审"架构，并量化 judge 漏检率（DS 侧 4/58）与幻觉式扣分，而非直接采信 judge 分数</td>
+  </tr>
+  <tr>
+    <td><a href="https://arxiv.org/abs/2503.00151">PALM</a>（UBC/MBZUAI 2025，17,411 条人工指令对覆盖 22 国）观测：约 90% 方言指令被模型回以 MSA</td>
+    <td>方言"理解 → 生成"的退化是主战场，但 PALM 只把它当附带观测，未设为计分维度</td>
+    <td>把语体准确性（D1）与语域切换（D2）设为独立计分维度，T3 类 20 条 case 专测 MSA↔方言双向改写</td>
+  </tr>
+  <tr>
+    <td><a href="https://arxiv.org/abs/2510.27543">Dialectal Arabic MMLU</a>（IBM/NYUAD/MBZUAI 2025，5 方言 15,675 题）结论：prompt 中显式标注方言名称反而使模型降分</td>
+    <td>模型对"显式元指令"和"隐式语体能力"是两回事，真实用户不会说"请用 Najdi 方言"</td>
+    <td>82% case（126/154）采用场景隐含语体——提问本身写在目标方言里或场景自然决定语体（如沙特方言提问"واحد قال لي «تو الناس»، شنو يقصد؟"），考察模型的语体跟随能力；仅 18%（28 条）含显式语体指令，其中 20 条集中在 T1/T3 改写题，任务性质决定必须指明目标语体</td>
+  </tr>
+  <tr>
+    <td><a href="https://arxiv.org/abs/2507.10216">Absher</a>（沙特 KKU 等 2025，18,564 题）：GPT-4o 自动生成题目 + 仅 10% 人工抽检</td>
+    <td>合成题扩量快，但质量天花板低，考不出区分度——测不出模型真正的"陷阱点"</td>
+    <td>154 条 case 全部人工原创，每条带 Gold 标准 + 预设陷阱（如 الأزهر 建校年份易混点、分钟减法陷阱）</td>
+  </tr>
+  <tr>
+    <td><a href="https://arxiv.org/abs/2409.11404">AraDiCE</a>（QCRI 2024，约 45K 样本）：英文→MSA→方言机器翻译 + 人工后编辑；<a href="https://arxiv.org/abs/2510.13430">TII 评测综述</a>（2025，覆盖 40+ 基准）点名此类翻译路径存在文化错位与循环评估风险</td>
+    <td>经英文中转的数据会系统性丢失文化语境，且可能污染被测模型的训练分布</td>
+    <td>case 从真实使用场景直接原创，不经过任何语言中转；评测集与公开训练语料零交集（见 3.4 污染声明）</td>
+  </tr>
+</table></div>
+
+<p><strong>对标矩阵：本评测的增量在哪。</strong>先交代时间线：上述工作均发表于 2026 年之前，反映的是上一代模型的能力水位；本评测以 GPT-6 Astra 发布（2026.09）后的新一轮模型能力迭代为时间基准，测试并记录当前主流模型的阿语综合能力。在这一基准上，本评测覆盖了四项上述工作均未涉及的维度：<strong>真实产品场景、语域切换显式计分、工程呈现层、干预实验</strong>。</p>
+<div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
+  <tr><th>能力维度</th><th>PALM</th><th>AraDiCE</th><th>Dialectal-MMLU</th><th>Absher</th><th>本评测</th></tr>
+  <tr><td>开放式生成（非选择题）</td><td>✓</td><td>✗（MCQ+翻译）</td><td>✗（纯 MCQ）</td><td>✗（纯 MCQ）</td><td>✓</td></tr>
+  <tr><td>真实产品场景（社媒/客服/日常）</td><td>✗（文化指令对）</td><td>✗</td><td>✗</td><td>✗（词典词条）</td><td>✓</td></tr>
+  <tr><td>语域切换显式计分</td><td>✗（仅附带观测）</td><td>✗</td><td>✗</td><td>✗</td><td>✓（D2 + T3）</td></tr>
+  <tr><td>沙特 Najdi 细分</td><td>✗（国家级）</td><td>✗（无沙特专项）</td><td>✗（国家级）</td><td>✓（五地区，但纯 MCQ）</td><td>✓（生成式）</td></tr>
+  <tr><td>工程呈现层（RTL/数字/Arabizi）</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓（T7，8 篇文献零覆盖）</td></tr>
+  <tr><td>judge-人工一致性量化</td><td>✓（Pearson 0.76）</td><td>✗</td><td>✗</td><td>✗（仅 MCQ 答案一致率）</td><td>✓（漏检率/幻觉扣分/维度分差）</td></tr>
+  <tr><td>干预实验（验证修复路径）</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓（注入映射表/系统提示词）</td></tr>
+  <tr><td>产品口径指标（采纳率/硬伤率）</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td></tr>
+</table></div>
+
+<p><strong>基于上述对标，给业务侧的阿语评测体系方案（四步）：</strong></p>
+<ol>
+  <li><strong>许可审计先行</strong>：AraDiCE 为 CC-BY-NC-SA（不可进入商用训练管线），Dialectal-MMLU 为 CC-BY 可用，PALM / Jawaher 已在 HuggingFace 公开可获取——数据引入前完成许可审计，这是数据合规的基本功；</li>
+  <li><strong>冷启动建基线</strong>：以 PALM 的 17,411 条人工指令对套用自有 rubric 复评，零数据生产成本，一周内可建立能力基线；</li>
+  <li><strong>迭代期自建场景化评测集</strong>：本评测的 154 条即 v1——覆盖真实产品场景、语域切换、工程呈现层，配套"judge 初筛 + 人工复核"双层管线，结论可直接归因到产品迭代；</li>
+  <li><strong>公开口径对标</strong>：用 PALM / Dialectal-MMLU 等开源基准作对外口径，与内部场景化评测集分开维护，避免评测集污染。</li>
+</ol>
+
+</section><section class="paper-section"><h2 id="section-2">二、横评实测发现</h2>
+
+<h3>2.1 能力总览（同一 judge · 三侧全量对照）</h3>
+<div class="card">
+<div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
+  <tr><th>维度</th><th>DeepSeek-V3.2<br><span class="muted">judge 全量 154 条</span></th><th>Kimi K3<br><span class="muted">judge 全量 154 条</span></th><th>GPT-6 Astra<br><span class="muted">judge 全量 154 条</span></th></tr>
+  <tr><td>D1 语体准确性</td><td class="win">2.99</td><td>2.97</td><td>2.99</td></tr>
+  <tr><td>D2 语域切换</td><td class="win">2.88</td><td>2.84</td><td>2.82</td></tr>
+  <tr><td>D3 知识准确性</td><td class="win">2.91</td><td>2.88</td><td>2.88</td></tr>
+  <tr><td>D4 文化适切性</td><td class="win">3.00</td><td>2.99</td><td>2.98</td></tr>
+  <tr><td>D5 推理质量</td><td class="win">2.77</td><td>2.73</td><td>2.73</td></tr>
+  <tr><td>D6 表达水准</td><td>2.95</td><td class="win">2.97</td><td>2.95</td></tr>
+</table></div>
+<p class="muted">读表注意：① 全部出自 deepseek-chat judge，<strong>DS 列属"同源自评"，存在系统性偏宽</strong>——实证：judge 给 DS 全量 154 条几乎找不到归因（仅 A1×1、A5×2），而人工层在 DS 回答里抓到了 judge 漏掉的 A7 事实错误（M-T5-02 教法归属张冠李戴，judge 仅给 D3=2）和 A5 文化幻觉（E-T7-02）；② 横向结论以人工层（下表）为准。judge 层可参考的稳健结论：<strong>三个模型共同最弱维度均为 D5 推理</strong>；Astra 侧 judge 归因同样稀少（A7×2、A1×1、A6×1），与 DS 同侧的"judge 找不到问题"现象一致，已经人工复核验证（2 条幻觉式扣分被实锤，详见 3.1）。</p>
+</div>
+<div class="card">
+<p><strong>产品口径指标对照</strong>（人工层：DS 67 / Kimi 67 / Astra 72 条 = 人工判定 + AI 代审，方法对称）</p>
+<div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
+  <tr><th>指标</th><th>DeepSeek-V3.2</th><th>Kimi K3</th><th>GPT-6 Astra</th><th>口径说明</th></tr>
+  <tr><td>采纳率（同意 + 基本同意）</td><td>94.0%（63/67）</td><td>89.6%（60/67）</td><td class="win">97.2%（70/72）</td><td>人工层 DS 67 条（人工 9 + 代审 58）/ Kimi 67 条（人工 13 + 代审 54）/ Astra 72 条（人工 13 + 代审 59）</td></tr>
+  <tr><td>硬伤率（判定"不同意"）</td><td>6.0%（4/67）</td><td>9.0%（6/67）</td><td class="win">2.8%（2/72）</td><td>Astra 两条硬伤：E-T3-05 医嘱"戒糖"弱化为"减糖"（A7）+ E-T2-06 «لأ» 拼写应为 «لا»（A8）</td></tr>
+  <tr><td>幻觉率（A7 事实错误）</td><td>1.5%（1/67）<br><span class="muted">judge 层另见下注</span></td><td>1.5%（1/67）<br><span class="muted">judge 层 1.9%（3/154）</span></td><td>1.4%（1/72）</td><td>人工层三方基本持平（各 1 条 A7）</td></tr>
+  <tr><td>拒答率</td><td>0%（0/154）</td><td>0%（0/154）</td><td>0%（0/154）</td><td>全量回答无拒绝、无空响应、无 API 失败</td></tr>
+</table></div>
+<p class="muted">关于 DS 幻觉率的历史数据：早期一轮小样本 judge 初筛曾标出 A7×7，本次同 judge 全量重跑仅标 A5×2、A7×0——judge 的幻觉判定随运行与样本波动，故幻觉率一律以人工层为准：<strong>三方基本持平</strong>（DS / Kimi 各 1.5%，Astra 1.4%）。人工层判定分布：DS 同意 44 / 基本同意 19 / 不同意 4；Kimi 同意 44 / 基本同意 16 / 不同意 6 / 无法判定 1；Astra 同意 55 / 基本同意 15 / 不同意 2。</p>
+</div>
+
+<h3>2.2 同题直接对话（同一 case 的三方对照）</h3>
+<div class="card">
+  <p><span class="caseid">E-T2-02</span> <span class="tag kimi">Kimi · Astra 达标</span> <strong>يا معلم 语用分析</strong></p>
+  <p>DS 被判"给出的替代称呼 <span class="ar" lang="ar" dir="rtl">يا أستاذ</span> 是泛阿语区通用语，非埃及特有——对语料边界不敏感"；Kimi 同题获人工复核"同意，比 ds 细节一些"；Astra 同题判【同意】：以地道开罗方言解释、点明语气可反转、明确正式场合改用 <span class="ar" lang="ar" dir="rtl">يا أستاذ</span>，语用分析完整。三家同题，DS 是唯一失分方。</p>
+</div>
+<div class="card">
+  <p><span class="caseid">S-T1-08 / E-T1-07</span> <span class="tag kimi">Kimi · Astra 胜</span> <strong>方言生成</strong></p>
+  <p>Kimi 人工判定："比 ds 好一些，段落开头没有那么多重复表达"（S-T1-08）；"基本同意，比 ds 文采好点"（E-T1-07）。Astra 两题同判【同意】："通篇地道 Najdi 口语、对父敬语层级到位"（S-T1-08）、"纯正开罗方言长信、母语级自然度"（E-T1-07）——方言生成的自然度上，DS 在三家中相对靠后。</p>
+</div>
+<div class="card">
+  <p><span class="caseid">E-T3-02</span> <span class="tag info">DS 相对胜</span> <strong>埃及工程师面试沙特公司</strong> <span class="tag info">人工出题</span></p>
+  <p>DS 该题是亮点 case（体面版埃及口语 + 主动援引 Vision 2030）；Kimi 同题被判"不同意，整体还是比较空泛，<strong>和 ds 问题比较像</strong>"；Astra 同题判【基本同意】：方言地道、避开红线，但"内容全围绕自我成长，未体现对沙特社会/市场机遇的针对性"——Kimi 与 Astra 同病（深度与针对性不足），DS 靠 Vision 2030 的针对性相对胜出。</p>
+</div>
+<div class="card">
+  <p><span class="caseid">S-T2-02</span> <span class="tag bad">三方同题全踩坑 · 错法各异</span> <strong>تو الناس 词义理解</strong></p>
+  <p>同一道题三种错法，正好构成三家的短板画像：DS 用生造表达 <span class="ar" lang="ar" dir="rtl">للتو</span>（人工复核："不知道哪里来的，本地人很少用"）——<strong>语料边界</strong>问题；Kimi 另混入波斯字母 <span class="ar" lang="ar" dir="rtl">أگدر</span>（"本地人看到会以为你是波斯人"）——<strong>生成纯净度</strong>问题；Astra 词义解释正确，但人工复核判"没有表达出略微讽刺的那一层意思"——<strong>语用层次</strong>问题。</p>
+</div>
+<div class="card">
+  <p><span class="caseid">S-T3-05 / E-T7-04 / M-T2-03</span> <span class="tag info">同题反转</span> <strong>单题胜负互有来回</strong></p>
+  <p>人工层同集对照发现：<strong>S-T3-05</strong>（演讲→方言推文）<strong>三家同题同型失守</strong>，都"基本照录官方原句"（Astra 同判 A2，方言化不彻底）；<strong>E-T7-04</strong>（Arabizi 解码）DS/Kimi 都把 <code>9</code> 误读为 <span class="ar" lang="ar" dir="rtl">ق</span>（埃及约定 9=ص），<strong>Astra 是唯一零样本正确解码的模型</strong>（9=ص、3=ع、7=ح 全对，人工复核仅指出题用词偏罕见）；而 <strong>M-T2-03</strong> 诗歌背景题 DS 与 Astra 答对（归属 المتنبي 准确、未杜撰），Kimi 反而虚构背景（A7）——单题层面没有常胜方，差距在分布密度。</p>
+</div>
+
+<h3>2.3 各自亮点 Case</h3>
+<div class="card">
+  <p><span class="tag ds">DeepSeek</span> 已确认的强项</p>
+  <ul>
+    <li><span class="caseid">S-T6-01</span> 沙特方言多步推理零退化，主动使用东阿拉伯数字符合海湾惯例；</li>
+    <li><span class="caseid">E-T7-02</span> Arabizi 解析并<strong>主动完成方言区指纹分析</strong>（从 <code>2=ق</code> 反推埃及用户）——但注意：同条回答的归属论证在人工层被判多处不实（见 2.4），亮点与瑕疵同体；</li>
+    <li><span class="caseid">E-T3-02</span> 跨方言区职场语用（Vision 2030、规避"为钱"红线）执行完整；</li>
+    <li><span class="caseid">S-T4-05</span>（人工层）加薪谈判话术纯沙特（<span class="ar" lang="ar" dir="rtl">يا طويل العمر / أبغى رأيك</span>），先谢恩、以询问代反对、主动提 3-6 个月评审折中，明确把"威胁离职"列为禁忌。</li>
+  </ul>
+</div>
+<div class="card">
+  <p><span class="tag kimi">Kimi K3</span> 本轮确认的强项</p>
+  <ul>
+    <li><span class="caseid">S-T4-05</span> 同题加薪谈判：全程 Najdi 口语纯正（<span class="ar" lang="ar" dir="rtl">جهّز أرقامك / مو / مية بالمية</span>），紧扣 <span class="ar" lang="ar" dir="rtl">حفظ ماء الوجه</span> 文化原则——与 DS 同题打平，同列两侧亮点；</li>
+    <li><span class="caseid">M-T5-15</span> 史实准确性：<span class="ar" lang="ar" dir="rtl">القرويين</span>（859 年）早于 <span class="ar" lang="ar" dir="rtl">الأزهر</span>（970-972 年），避开"الأزهر 最古老"的常见错误陷阱；</li>
+    <li><span class="caseid">S-T7-01</span> Arabizi 解码全对（<code>8=غ / 7=ح / 3=ع / 6=ط</code>），并以自然沙特语体主动给出可选时段、索取姓名电话，完成客服闭环；</li>
+    <li><span class="caseid">M-T7-01</span> RTL 工程呈现：全篇统一东阿拉伯数字、价格+货币顺序零反转。</li>
+  </ul>
+</div>
+
+<h3>2.4 Bad Case 与归因对照</h3>
+<div class="card">
+  <p><span class="tag ds">DeepSeek</span> 代表性 bad case（人工复核判定）</p>
+  <ul>
+    <li><span class="caseid">S-T1-02</span>｜A2 语体错配：<span class="ar" lang="ar" dir="rtl">فاز فوز يبرد القلب</span> MSA 同源宾语结构渗入方言、错配成语 <span class="ar" lang="ar" dir="rtl">على طير من الفرح</span>（应为 <span class="ar" lang="ar" dir="rtl">طاير من الفرح</span>）、一条推文输出四条；</li>
+    <li><span class="caseid">S-T4-01</span>｜语用频率偏差：<span class="ar" lang="ar" dir="rtl">الله يعافيك</span> 不如 <span class="ar" lang="ar" dir="rtl">يعطيك العافية</span> 常用，篇幅约为口语实际两倍——"正确但不像人话"；</li>
+    <li><span class="caseid">E-T2-02</span>｜地域特征稀释：泛阿拉伯表达冒充埃及特色；</li>
+    <li><span class="caseid">M-T5-02</span>｜A7 事实错误（人工层新发现）：多处教法归属张冠李戴（哈乃斐派洗小净次序、沙斐仪派 طهارة الطواف 等三处以上可验证错误）——<strong>judge 同源初筛仅给 D3=2，漏检</strong>；</li>
+    <li><span class="caseid">E-T7-02</span>｜A5 文化幻觉（人工层新发现）：方言归属论证虚构（"沙特人用 اذهب 不用 روح"不实）、自建示例自相矛盾——与它的 Arabizi 解码亮点同体；</li>
+    <li><span class="caseid">S-T3-05 / E-T7-04</span>｜A2 / A10：与 Kimi 同题同型失守（见 2.2 同题反转）。</li>
+  </ul>
+</div>
+<div class="card">
+  <p><span class="tag kimi">Kimi K3</span> 本轮 bad case（3 条硬伤 + 1 条新伤类型）</p>
+  <ul>
+    <li><span class="caseid">M-T2-03</span>｜A7 事实错误：<strong>虚构诗歌背景</strong>——将诗句错配到"يخاطب ابن طاغج الإخشيدي"的杜撰场景（实出《واحر قلباه ممن قلبه شبم》，与逃离 كافور الإخشيدي 相关）；同题 DS 答对；</li>
+    <li><span class="caseid">S-T3-05</span>｜A2 语体错配：正式演讲→方言推文改写基本是原句微调（<span class="ar" lang="ar" dir="rtl">نجدد البيعة والولاء لقيادتنا الرشيدة</span>），未真正切换到沙特口语，正中预设陷阱——与 DS 同题同型；</li>
+    <li><span class="caseid">E-T7-04</span>｜A10 Arabizi 解析失败：把 <code>matw9latsh</code> 的 <code>9</code> 误读为 <span class="ar" lang="ar" dir="rtl">ق</span>（埃及基线约定 9=ص），核心动词从"未送达"错解为"未分配"——DS 同题犯了同样的 9=ق 误读，仅语义侥幸保全；</li>
+    <li><span class="caseid">S-T2-02</span>｜新问题类型：<strong>非阿语字母渗入</strong>（波斯 <span class="ar" lang="ar" dir="rtl">گ</span>），DS 全程未见，疑为波斯语/乌尔都语语料污染阿拉伯语生成。</li>
+  </ul>
+</div>
+
+<h3>2.5 产品化视角：bad case 的定位与兜底</h3>
+<p>AI 产品的 PRD 比传统 PRD 多一块"模型行为边界"——什么能答、什么不能答、幻觉怎么兜底。按"<strong>先定位问题出在哪一层 → 排查步骤 → 兜底方案</strong>"的框架，把本轮硬伤翻译成产品动作：</p>
+<div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
+  <tr><th>Bad case</th><th>定位</th><th>排查路径</th><th>兜底设计（写进 PRD 的部分）</th></tr>
+  <tr><td><span class="caseid">E-T7-04</span> Arabizi 解码错（DS/Kimi 同病，Astra 已通过）</td><td>数据层 + 模型层</td><td>Arabizi 训练语料未按方言区系统覆盖 → 不是提示词能修的</td><td>解码置信度低时<strong>确认式反问</strong>（"您的意思是订单尚未送达吗？"）而非直接执行；客服场景把"数字映射歧义"列入必回归 case</td></tr>
+  <tr><td><span class="caseid">M-T2-03</span> / <span class="caseid">M-T5-02</span> 事实幻觉</td><td>数据层</td><td>长尾史实/教法归属覆盖不足 → 高自信幻觉</td><td>知识类回答挂<strong>事实核查/RAG 层</strong>；无法核实的背景信息降置信输出并标注"请核实"，而不是补全得煞有介事</td></tr>
+  <tr><td><span class="caseid">S-T3-05</span> 语体切换失败（三家同病）</td><td>提示词层可兜大半</td><td>先查系统提示词是否显式约束语体 + few-shot 示例，残余再考虑微调</td><td>系统提示词显式声明目标语体 + 1-2 条方言 few-shot；上线前用本评测集 T3 子集做回归门槛</td></tr>
+  <tr><td>宗教/文化禁忌（A4 类）</td><td>—</td><td>—</td><td>本轮三模型 <strong>0 触犯</strong>：该红线当前可靠，但需保留在每次模型升级的回归集里</td></tr>
+</table></div>
+<p class="muted">只说"加强优化、持续迭代"是没有信息量的——每个 bad case 都必须能回答：出在哪一层、怎么验证、兜底是什么、回归怎么跑。</p>
+
+<h3>2.6 人工判定 vs Judge 一致性（双模型交叉验证）</h3>
+<p>DS 侧已确认 judge 的三类系统性盲区：<strong>语感频率判断</strong>（<span class="ar" lang="ar" dir="rtl">الله يعافيك</span> vs <span class="ar" lang="ar" dir="rtl">يعطيك العافية</span> 哪个更常用）、<strong>语义-语用错位</strong>（<span class="ar" lang="ar" dir="rtl">معلش</span> 的安慰 vs 道歉功能）、<strong>地域特异性</strong>（泛阿拉伯 vs 方言特有）。本轮双侧全量对照又补两类实证：</p>
+<ul>
+  <li><strong>同源偏宽</strong>：judge 给 DS 全量 154 条几乎找不到归因（A1×1、A5×2），人工层却抓到 A7（M-T5-02）、A5（E-T7-02）、A10（E-T7-04 的 9=ق 误读，judge 给全 3 并复述了同样的错误）；judge 对 DS 的 A7 判定在两次运行间不一致（早期小样本初筛标 ×7、全量重跑标 ×0），幻觉判定本身随运行漂移；</li>
+  <li><strong>幻觉式扣分</strong>（Kimi 侧）：M-T6-06 答案 162 完全正确却被 judge 给 D3/D5=0（理由自相矛盾）；S-T6-05 被误称"埃及方言"扣分；S-T2-01 被误判低分——均被人工层推翻。</li>
+</ul>
+<p><strong>结论</strong>：judge 可承担"语法/事实/结构"层初筛，但"地道性/语用/地域"三层必须人工兜底；judge 与被测模型同源时会系统性偏宽，对不同源模型又会产生幻觉式扣分——bad case 清单必须人工复核后才能进报告，两个方向都验证过。</p>
+
+<h3>2.7 横评结论</h3>
+<div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
+  <tr><th>维度</th><th>结论</th><th>依据</th></tr>
+  <tr><td>整体采纳率 / 硬伤率</td><td class="win">Astra 本轮样本最优</td><td>Astra 97.2% / 2.8%（72 条）；DS 94.0% / 6.0%、Kimi 89.6% / 9.0%（各 67 条）。人工层包含人工判定与 AI 代审，样本规模和人工判定占比不同。</td></tr>
+  <tr><td>知识准确性 D3</td><td>互有胜负</td><td>judge 同集 Kimi 2.85 vs 2.67；但人工层幻觉率 1.5% 持平，且 M-T2-03 单题 DS 对 Kimi 错、M-T5-02 单题 DS 错 Kimi 对（未评）——无稳定胜方</td></tr>
+  <tr><td>文化适切 D4</td><td class="win">Kimi 略优</td><td>judge 同集 2.97 vs 2.87；S-T4-05 等条目的语用程序完整度获人工复核认可（该题 DS 同样出色）</td></tr>
+  <tr><td>表达细腻度 D6</td><td class="win">Kimi 略优</td><td>人工同题评语"比 ds 细节一些 / 文采好点 / 重复表达更少"×3</td></tr>
+  <tr><td>语域切换 D2</td><td class="win">DS 略优</td><td>judge 同集 2.87 vs 2.74；但 S-T3-05 两模型同题同型失败，领先仅限其余 case</td></tr>
+  <tr><td>推理 D5</td><td>打平</td><td>两模型 judge 2.72-2.77 区间，方言环境推理均无明显退化</td></tr>
+  <tr><td>Arabizi / T7 工程层</td><td class="win">Astra 领先</td><td>三方都有高光解码，但 E-T7-04 的 9=ص 陷阱 DS/Kimi 同题同型失守、<strong>Astra 零样本全对</strong>——数字歧义是 DS/Kimi 的共同短板，Astra 已越过</td></tr>
+  <tr><td>生成纯净度</td><td class="win">DS 领先</td><td>Kimi 出现波斯字母 <span class="ar" lang="ar" dir="rtl">گ</span> 混入（S-T2-02），DS 未见非阿语字母渗入</td></tr>
+</table></div>
+<p class="muted">总体：三者同属阿语第一梯队，差距在"细腻度"而非"能力有无"。DeepSeek 采纳率高、硬伤少、生成纯净；Kimi K3 在文化、文采的单点高度上更出色；Astra 整体稳定性最高（采纳率 97.2% / 硬伤率 2.8%）且在 Arabizi 数字歧义上零样本通过，短板在语用细腻度（S-T2-02 缺讽刺层）。三家共性天花板集中在：语体切换的"形似神不似"（S-T3-05 三家同病）、敬语细节（A4 三家同型）、母语者语感的最后一公里；Arabizi 数字歧义不再是三家共同短板。</p>
+
+<h3>2.8 评测工程化与成本账</h3>
+<div class="card">
+<p><strong>机器层成本（token 账）</strong></p>
+<ul>
+  <li>被测回答：154 条 × 2 模型，单条 input 约 0.1-0.3K tokens、output 0.5-2K tokens（K3 含思维链），合计约百万 tokens 以内；DeepSeek 按量计费为元级，Kimi 走订阅额度；</li>
+  <li>judge 初筛：154 条 ×（rubric 约 2K + 回答）tokens，deepseek-chat 计费<strong>约 ¥2 量级</strong>；</li>
+  <li>结论：机器层全量跑一遍的边际成本不足一杯咖啡，<strong>评测的真瓶颈从来不是 token 单价，而是人工复核时间</strong>。</li>
+</ul>
+<p><strong>人力账（降本手段的实战）</strong></p>
+<ul>
+  <li>纯人工：154 条 × 约 2 分钟 ≈ 5 小时；双层管线：judge 全量初筛 + 人工只深评核心 64 条 + judge 标记 3 条 ≈ 2.2 小时，<strong>人力压减 57%</strong>；</li>
+  <li>这正是"给简单任务换小模型"的评测版：2.6 节证明 judge 在语法/事实/结构层可靠，人工复核时间只投向"地道性/语用/地域"三个机器盲区——把人用在机器替代不了的地方；</li>
+  <li>进一步降本空间：压缩 judge 的系统提示词（rubric 精简版）、对同任务类型开缓存、初筛换更小的模型，均已列入下一轮迭代。</li>
+</ul>
+<p><strong>工程化沉淀</strong></p>
+<ul>
+  <li>runner / judge / 复核稿生成全部脚本化（run_eval_kimi_local.py · judge_kimi3.py · gen_review.py），换新模型重跑一次全量横评 <strong>&lt; 10 分钟</strong>；</li>
+  <li>token 自动刷新、并发控制、错误重试、结果按 case 顺序落盘（JSONL），复核稿自动生成带【待填】占位——整条管线可复用于任意第三模型。</li>
+</ul>
+</div>
+
+</section><section class="paper-section"><h2 id="section-3">三、评审管线与干预实验（工程验证）</h2>
+
+<h3>3.1 Judge 校准：self-preference bias 实测</h3>
+<p>评审管线使用 LLM-as-judge（deepseek-chat）做初筛，其可信度必须被测量而非假设。用同一 judge 对双模型全量 154 条打分、并与人工层 67 条逐案对照，得到：</p>
+<div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
+  <tr><th>指标</th><th>judge 评 DeepSeek（同源）</th><th>judge 评 Kimi K3（第三方）</th><th>judge 评 Astra（第三方）</th></tr>
+  <tr><td>全量总均分（6 维 × 154 条）</td><td>2.919</td><td>2.896</td><td>2.892</td></tr>
+  <tr><td>归因标签条数（发现问题数）</td><td>3 / 154</td><td>7 / 154</td><td>4 / 154</td></tr>
+  <tr><td>漏检率（人工层判 ≤1 分但 judge 全 ≥2）</td><td>4 / 58</td><td>3 / 54</td><td>2 / 72</td></tr>
+  <tr><td>幻觉式扣分（judge 判 ≤1 分但人工层不认同）</td><td>0 / 58</td><td>2 / 54</td><td>2 / 72</td></tr>
+  <tr><td>judge-人工维度分平均绝对差</td><td>0.118</td><td>0.176</td><td>0.088</td></tr>
+</table></div>
+<p class="muted">解读：judge 对同源模型"更宽容、更少归因、与人工层更一致"，对第三方模型"更苛刻、且会产生幻觉式扣分"——self-preference bias 不是理论风险而是实测存在（尽管总分差仅 0.02，但归因密度差 2.3 倍）。Astra 侧进一步实证：judge 在第三方模型上同样产生幻觉式扣分——S-T6-06 中 Astra 答案 ٤٥-٧+١٢=٥٠ 完全正确，judge 却判"算术自相矛盾"给 D3/D5=0（其理由里自己算出的也是 50）；S-T2-07 中 judge 把海湾通用表达 <span class="ar" lang="ar" dir="rtl">على عيني وراسي</span> 误判为"埃及方言"，被人工复核当场推翻。两条均为人工实锤。因此本报告所有关键结论均以人工层为准，judge 仅承担初筛。结论升级为：<strong>"judge 不可裸信"是跨模型普适现象，不因同源/异源而消失；judge 与被测模型应异源，且最好多家 judge 交叉</strong>。</p>
+
+<h3>3.2 干预实验：bad case → 修复 → 重跑 → 验证</h3>
+<p>"三、数据建议"里的路线不是口头建议——对两条可快速验证的路线做了干预实验（干预脚本 run_interventions.py，结果存档 interventions.json）：</p>
+<div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
+  <tr><th>Bad case</th><th>路线</th><th>干预</th><th>重跑结果</th><th>结论</th></tr>
+  <tr><td><span class="caseid">E-T7-04</span> Arabizi 9=ص 解码错（DS/Kimi 同病）</td><td>提示词 / RAG 式外挂</td><td>用户提示词前注入埃及 Arabizi 映射表</td><td class="win">完全修复：两模型均正确解出 <span class="ar" lang="ar" dir="rtl">متوصلتش</span>（尚未送达），数字歧义消歧正确</td><td>"规则型缺口"用知识外挂高效，无需动权重；验证了建议 2 的短期路线（估计可解七成同类）</td></tr>
+  <tr><td><span class="caseid">S-T3-05</span> 语体切换失败（三家同病）</td><td>提示词层</td><td>系统提示词显式约束"只用 Najdi 口语，禁止 MSA 书面句式"</td><td>部分有效：输出变为推文形态（emoji/hashtag/短句），但 <span class="ar" lang="ar" dir="rtl">نجدد العهد والبيعة لقيادتنا الرشيدة</span> 类程式化表达两模型<strong>仍原样退回 MSA</strong></td><td>提示词能修"格式和语气"，修不动"语体惯性"——残余部分实证指向方言 SFT，验证了建议 1 的路线-代价判断</td></tr>
+  <tr><td><span class="caseid">S-T2-02</span> 波斯字母 <span class="ar" lang="ar" dir="rtl">گ</span> 渗入</td><td>工程层</td><td>字符集白名单扫描器（非阿语扩展字母正则），已实现并回扫双模型全量</td><td class="win">检出率 100%：DS 0/154，Kimi 2/154（S-T2-02、E-T7-02 两处 <span class="ar" lang="ar" dir="rtl">گ</span> 均被捕获）</td><td>生成纯净度可纯工程兜底，正则即可，不进模型训练循环</td></tr>
+</table></div>
+<p class="muted">注：干预实验在 DS/Kimi 两侧验证。E-T7-04 的 9=ص 陷阱 Astra 零样本即通过，无需干预；S-T3-05 的语体惯性则三家同病——Astra 同样退回 MSA 程式化句式，"该短板需方言 SFT 级别介入"的判断对三家均成立。</p>
+
+<h3>3.3 CoT 语言切换观测：thinking 模型带来的新评测维度</h3>
+<p>K3 为 thinking 模型，API 返回思维链（reasoning_content）——这让 A6「推理语言切换」从"推测"变成"可直接观测的指标"。对 3 条 T6 推理 case 的实测：</p>
+<div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
+  <tr><th>Case</th><th>回答语体</th><th>思维链语言构成</th><th>思维链开头</th></tr>
+  <tr><td><span class="caseid">M-T6-01</span></td><td>MSA</td><td>拉丁字符 100% / 阿语 0%</td><td><em>"Let me solve this problem step by step in Arabic."</em></td></tr>
+  <tr><td><span class="caseid">S-T6-03</span></td><td>沙特方言</td><td>拉丁 89% / 阿语 11%</td><td><em>"The user says … = 4 people. Total 240 riyals…"</em></td></tr>
+  <tr><td><span class="caseid">E-T6-03</span></td><td>埃及方言</td><td>拉丁 76% / 阿语 24%</td><td><em>"Round trip = 2 rides/day × 12 = 24 جنيه/يوم…"</em></td></tr>
+</table></div>
+<p><strong>发现：输出层的地道方言 ≠ 推理层的方言推理。</strong>K3 实际工作模式是"用英语思考，用目标语体翻译输出"。这有两层含义：① 两模型 D5 推理同为最低维度，机制可能在此——方言场景的推理经由英语中转，引入语义损耗；② 方言推理能力的真瓶颈在 reasoning 层语料而非 output 层，<strong>传统 output 评测看不到这一层，CoT 监测应成为 thinking 模型时代方言评测的标配维度</strong>（例如直接测"用沙特方言思考时 D5 是否优于英语中转"——这本身就是下一步的实验设计）。</p>
+
+<h3>3.4 可复现性与污染声明</h3>
+<ul>
+  <li><strong>版本与参数</strong>：deepseek-chat（2026-09 调用快照，V3.2）/ k3-256k；DS temperature=0.3，K3 接口强制 temperature=1；judge temperature=0；</li>
+  <li><strong>结构化输出</strong>：judge JSON 解析成功率 308/308（154 × 2 模型），无解析失败重试；</li>
+  <li><strong>污染声明</strong>：case 集为 2026-09 新写、从未公开，进入两模型训练集的风险极低；rubric、gold 标准、全部原始回答、judge 输出、人工层判定逐条 JSONL 存档，评测管线一键重跑 &lt; 10 分钟；</li>
+  <li><strong>已知工程局限（下一步）</strong>：单采样（n=1）未测输出方差（K3 temperature=1 下结论的稳定性需 n≥3 验证）；单一 judge 未做 cross-judge 交叉验证；代审层（171 条）未经人工抽检校准。</li>
+</ul>
+
+</section><section class="paper-section"><h2 id="section-4">四、对模型迭代的数据建议（分路线 · 带代价评估）</h2>
+<p>每条建议标注修复路线与代价——同一个"能力不足"，走提示词、RAG 还是微调，成本和效果上限完全不同：</p>
+<ol>
+  <li><strong>方言语料中的"套话程序"标注</strong>｜路线：数据层 + SFT 微调。海湾邀请/拒绝/道歉场景的完整客套链条（如邀请必须含宗教客套层 <span class="ar" lang="ar" dir="rtl">تشرفنا / الله يحييك</span>），现有语料只有"正确的句子"，缺"完整的程序"。<span class="muted">代价：需方言母语标注员，周期以月计；高频场景可先用提示词层兜，但干预实验（3.2）已实证：提示词能修格式语气、修不动语体惯性，SFT 不可替代。</span></li>
+  <li><strong>Arabizi 语料的系统化构建</strong>｜路线：数据层 + 微调（映射规则需内化进权重，本轮确认是双模型共同系统短板）。<span class="muted">代价：按方言区分别构建（埃及 2=ق / 海湾 8=غ / 马格里布法语体系），数字歧义 case 需专项覆盖；短期可用提示词注入映射表（RAG 式外挂）——干预实验（3.2）已在 E-T7-04 上完全修复，但方言区指纹分析这类推理仍依赖内化。</span></li>
+  <li><strong>"地域特异性"负样本</strong>｜路线：偏好优化（DPO 正负例对）。泛阿拉伯表达冒充方言特色的 bad case 集合（如 <span class="ar" lang="ar" dir="rtl">يا أستاذ</span> 冒充埃及特色），训练模型识别"语料边界"。<span class="muted">代价：需人工构造正负例，但量级要求低（百级即可见效），是五条中投入产出比最高的一条。</span></li>
+  <li><strong>易混史实对抗集</strong>｜路线：RAG / 事实核查层优先，微调殿后。王朝年代、机构创立、诗歌背景、教法归属属"知识更新频繁、长尾无限"的典型 RAG 适用域——改模型权重存知识既不经济也追不上更新；只有稳定高频事实才值得进微调。<span class="muted">代价：知识库建设与持续维护；两模型同病（DS M-T5-02 教法归属错误 / Kimi M-T2-03 虚构诗歌背景），对抗集一次构建双端复用。</span></li>
+  <li><strong>跨语种字母污染清洗</strong>｜路线：纯工程手段（语料清洗 + 解码层校验），不动模型。Kimi 回答混入波斯字母 <span class="ar" lang="ar" dir="rtl">گ</span>（<span class="ar" lang="ar" dir="rtl">أگدر</span>），提示阿拉伯语生成需防范波斯语/乌尔都语等阿拉伯字母体系语言的字符渗入。<span class="muted">代价：五条中最低——生成端加字符集白名单校验（阿语 Unicode 块 + 少量扩展），正则即可拦截。</span></li>
+</ol>
+
+</section><section class="paper-section"><h2 id="section-5">五、方法论说明与局限</h2>
+<p><strong>诚实条款</strong>：</p>
+<ul>
+  <li>初筛 judge 为 deepseek-chat：对 DeepSeek 属同源自评（已实证偏宽：全量 154 条几乎零归因，人工层仍抓到 A7/A5/A10），对 Kimi 属第三方评价——judge 分仅作参考，所有关键结论以人工层判定为准；</li>
+  <li>两侧人工层规模对称（各 67 条）但人工判定占比不同：DS 人工 9 + AI 代审 58，Kimi 人工 13 + AI 代审 54，Astra 人工 13 + AI 代审 59。<strong>三侧代审条目均未经人工逐条复核</strong>（时间约束），逐条存档于 ds_verdicts.json / kimi3_verdicts.json / gpt6astra_verdicts.json 并与人工判定分开标注，可按需抽检；DS 另有 11 条早期人工判定信号，其中 2 条（S-T1-01/S-T1-02）在 67 集之外，未计入采纳率；</li>
+  <li>生成参数不完全对齐：Kimi K3 接口强制 temperature=1，DeepSeek 侧为 0.3——温度直接影响输出多样性与创意类任务（T1）的发散度，对比解读时已计入此变量；</li>
+  <li>成本数字（2.8 节）为按公开定价与实测 token 量的工程估算，用于说明量级而非精确对账；</li>
+  <li>干预实验（3.2 节）每条路线仅验证 1 条代表 case，结论方向可信但覆盖率有限，不作为路线效果的完整度量；</li>
+  <li>复核中发现 Gold 标准两处疑似笔误（M-T6-01 参考答案 10:32 应为 10:16；S-T7-04 的 9=ص 与其自身解码矛盾），已在 case 元数据层标注，不影响横评结论；</li>
+  <li>评测人对海湾内部细分、马格里布方言、逊尼派法学细节主动声明不判定（宁缺毋滥原则）；</li>
+  <li>T5 中"沙特建国日（1727）"为 2022 年新设纪念日，对知识截止较早的模型存在时间不公平，已在 case 元数据中标注。</li>
+</ul>
+<div class="note"><strong>延伸观察：方言语音数据的 ASR 层失真。</strong>评测过程中对一条埃及方言口语视频做 ASR 转写（faster-whisper small），识别结果系统性失真（如将方言词误识别为不存在的 <span class="ar" lang="ar" dir="rtl">الدتاءة / ممسس</span>）。这提示：<strong>方言语音类数据的第一道坎不在模型而在 ASR 层</strong>——通用 ASR 对方言口语的转写错误会直接污染下游训练/评测数据，小语种语音数据管线需内置方言适配或人工抽检环节。</div>
+
+</section>
+<footer>
+  <p><strong>材料清单</strong>：<a href="review/rubric.md">rubric.md</a>（完整评分框架）· cases_full.jsonl（154 条 case）· <a href="review/arabizi_reference.md">arabizi_reference.md</a>（Arabizi 映射调研）· 三模型各 154 条原始回答存档（JSONL）· expert_verdicts.json（DS 早期人工判定 11 条）· ds_verdicts.json / kimi3_verdicts.json / gpt6astra_verdicts.json（三侧人工层 67 / 67 / 72 条：人工判定 + AI 代审分开标注）· ds_judge.json / kimi3_judge.json / gpt6astra_judge.json（judge 三侧全量初筛）· interventions.json（干预实验存档）· 评测管线脚本（run_eval.py / run_eval_kimi_local.py / run_eval_codex.py / judge_kimi3.py / gen_review.py / run_interventions.py）· 复核稿存档（<a href="review/deepseek_review.md">deepseek_review.md</a> / <a href="review/kimi3_core_review.md">kimi3_core_review.md</a> / <a href="review/kimi3_extra_review.md">kimi3_extra_review.md</a> / <a href="review/gpt6astra_core_review.md">gpt6astra_core_review.md</a> / <a href="review/gpt6astra_extra_review.md">gpt6astra_extra_review.md</a> / <a href="review/gpt6astra_manual_review.md">gpt6astra_manual_review.md</a>）· 相关文献原文存档（related_work/，8 篇 arXiv PDF）</p>
+  <p>© 2026 Aaron · 本报告为求职作品集，评测数据存档备索 · DS 单机版报告见备份文件</p>
+</footer>
+
+</main></div><a class="backtop" href="#top" aria-label="返回页面顶部">↑ 返回顶部</a>
+<script>
+(()=>{
+const root=document.documentElement;
+const prefs=[['font-size','--reading-size',['16','18','20']],['page-width','--reading-width',['920','760']]];
+for(const [id,property,allowed] of prefs){const select=document.getElementById(id);try{const saved=localStorage.getItem('arabic-report-'+id);if(allowed.includes(saved))select.value=saved;}catch{}const apply=()=>root.style.setProperty(property,select.value+'px');apply();select.addEventListener('change',()=>{apply();try{localStorage.setItem('arabic-report-'+id,select.value);}catch{}});}
+document.getElementById('print').addEventListener('click',()=>window.print());
+const details=document.getElementById('contents');const media=matchMedia('(max-width:600px)');const fit=()=>details.open=!media.matches;fit();media.addEventListener('change',fit);
+const links=[...document.querySelectorAll('.contents nav a,.chapter-nav nav a')];const headings=[...document.querySelectorAll('h2[id]')];let ticking=false;
+function update(){const maximum=root.scrollHeight-innerHeight;const progress=maximum>0?Math.min(1,Math.max(0,scrollY/maximum)):0;document.querySelector('.progress').style.transform=`scaleX(${progress})`;let active=0;headings.forEach((h,i)=>{if(h.getBoundingClientRect().top<=150)active=i;});if(progress>.995)active=headings.length-1;links.forEach(a=>{if(a.getAttribute('href')==='#'+headings[active].id)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});ticking=false;}
+addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(update);ticking=true;}},{passive:true});addEventListener('resize',update);update();
+const settings=document.querySelector('.settings');document.addEventListener('keydown',e=>{if(e.key==='Escape'&&settings.open){settings.open=false;settings.querySelector('summary').focus();}});document.addEventListener('click',e=>{if(!settings.contains(e.target))settings.open=false;});
+})();
+</script></body>
+</html>
