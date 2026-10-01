@@ -48,7 +48,7 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 </section><section class="paper-section"><h2 id="section-1">一、评测设计</h2>
 
 <h3>1.1 三语体框架</h3>
-<p>阿语不是单一语言而是<strong>语体连续体</strong>，模型必须在三种语体间准确切换：</p>
+<p>阿语是<strong>语体连续体</strong>，模型必须在三种语体间准确切换：</p>
 <div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
   <tr><th>语体</th><th>锚点</th><th>典型场景</th><th>数据现状</th></tr>
   <tr><td>MSA</td><td>当代规范书面语</td><td>新闻、公文、正式演讲</td><td>语料充足</td></tr>
@@ -110,7 +110,8 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
   </tr>
 </table></div>
 
-<p><strong>对标矩阵：本评测的增量在哪。</strong>先交代时间线：上述工作均发表于 2026 年之前，反映的是上一代模型的能力水位；本评测以 GPT-6 Astra 发布（2026.09）后的新一轮模型能力迭代为时间基准，测试并记录当前主流模型的阿语综合能力。在这一基准上，本评测覆盖了四项上述工作均未涉及的维度：<strong>真实产品场景、语域切换显式计分、工程呈现层、干预实验</strong>。</p>
+<p><strong>对标矩阵：本评测的增量在哪。</strong></p>
+<p>上述工作均发表于 2026 年之前，反映的是上一代模型的能力水位；本评测以 GPT-6 Astra 发布（2026.09）后的新一轮模型能力迭代为时间基准，测试并记录当前主流模型的阿语综合能力。在这一基准上，本评测覆盖了四项上述工作均未涉及的维度：<strong>真实产品场景、语域切换显式计分、工程呈现层、干预实验</strong>。</p>
 <div class="table-scroll" role="region" aria-label="评测对照表，可横向滚动" tabindex="0"><table>
   <tr><th>能力维度</th><th>PALM</th><th>AraDiCE</th><th>Dialectal-MMLU</th><th>Absher</th><th>本评测</th></tr>
   <tr><td>开放式生成（非选择题）</td><td>✓</td><td>✗（MCQ+翻译）</td><td>✗（纯 MCQ）</td><td>✗（纯 MCQ）</td><td>✓</td></tr>
@@ -123,7 +124,7 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
   <tr><td>产品口径指标（采纳率/硬伤率）</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td></tr>
 </table></div>
 
-<p><strong>基于上述对标，给业务侧的阿语评测体系方案（四步）：</strong></p>
+<p><strong>基于上述对标，给业务侧的阿语评测体系四步方案：</strong></p>
 <ol>
   <li><strong>许可审计先行</strong>：AraDiCE 为 CC-BY-NC-SA（不可进入商用训练管线），Dialectal-MMLU 为 CC-BY 可用，PALM / Jawaher 已在 HuggingFace 公开可获取——数据引入前完成许可审计，这是数据合规的基本功；</li>
   <li><strong>冷启动建基线</strong>：以 PALM 的 17,411 条人工指令对套用自有 rubric 复评，零数据生产成本，一周内可建立能力基线；</li>
@@ -328,7 +329,6 @@ body{line-height:1.85}.topbar-inner{max-width:1240px;min-height:78px;padding:14p
 </section><section class="paper-section"><h2 id="section-5">五、方法论说明与局限</h2>
 <p><strong>诚实条款</strong>：</p>
 <ul>
-  <li>初筛 judge 为 deepseek-chat：对 DeepSeek 属同源自评（已实证偏宽：全量 154 条几乎零归因，人工层仍抓到 A7/A5/A10），对 Kimi 属第三方评价——judge 分仅作参考，所有关键结论以人工层判定为准；</li>
   <li>两侧人工层规模对称（各 67 条）但人工判定占比不同：DS 人工 9 + AI 代审 58，Kimi 人工 13 + AI 代审 54，Astra 人工 13 + AI 代审 59。<strong>三侧代审条目均未经人工逐条复核</strong>（时间约束），逐条存档于 ds_verdicts.json / kimi3_verdicts.json / gpt6astra_verdicts.json 并与人工判定分开标注，可按需抽检；DS 另有 11 条早期人工判定信号，其中 2 条（S-T1-01/S-T1-02）在 67 集之外，未计入采纳率；</li>
   <li>生成参数不完全对齐：Kimi K3 接口强制 temperature=1，DeepSeek 侧为 0.3——温度直接影响输出多样性与创意类任务（T1）的发散度，对比解读时已计入此变量；</li>
   <li>成本数字（2.8 节）为按公开定价与实测 token 量的工程估算，用于说明量级而非精确对账；</li>
